@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\api;
 
 use App\Customer;
+use App\DeliveryMan;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\Controller;
+use App\Merchant;
 use App\User;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -19,18 +22,42 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $creds = $request->only(['email', 'password']);
-        if (!$token = JWTAuth::attempt($creds)) {
+        try {
+            $creds = $request->only(['email', 'password']);
+            $user = User::where('email', $request->email)->first();
+            $roles = $user->roles->pluck('name');
+            $role = "";
+            foreach ($roles as $role) {
+                $role = $role;
+            }
+
+            if ($user->status == "activo") {
+                if (!$token = JWTAuth::attempt($creds)) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'invalid credentials'
+                    ], 401);
+                }
+                return response()->json([
+                    'success' => true,
+                    'token' => $token,
+                    'role' => $role,
+                    'user' => Auth::user()
+                ], 200);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'invalid credentials'
+                ], 401);
+            }
+
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'invalid credentials'
             ], 401);
         }
-        return response()->json([
-            'success' => true,
-            'token' => $token,
-            'user' => Auth::user()
-        ], 200);
+
     }
 
     public function register(Request $request)
@@ -46,7 +73,7 @@ class AuthController extends Controller
             $user->password = $encriptedPass;
             $user->url_image = "";
             $user->save();
-            ///asignamos el rol el empresario
+            ///asignamos el rol de cliente
             $role = Role::findById(2);
             $user->assignRole($role);
 
@@ -74,6 +101,31 @@ class AuthController extends Controller
 
     }
 
+    public function getProfile(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+
+        $roles = $user->roles->pluck('name');
+        $role = "";
+        foreach ($roles as $role) {
+            $role = $role;
+        }
+        if ($role == "Cliente") {
+            $profile = Customer::where('id_user', $user->id)->first();
+        }
+        if ($role == "Empresario") {
+            $profile = Merchant::where('id_user', $user->id)->first();
+        }
+        if ($role == "Repartidor") {
+            $profile = DeliveryMan::where('id_user', $user->id)->first();
+        }
+        return response()->json([
+            'profile' => $profile,
+            'user' => $user,
+            'success' => true
+        ]);
+    }
+
     public function logout(Request $request)
     {
         try {
@@ -93,18 +145,53 @@ class AuthController extends Controller
     public function profileUser(Request $request)
     {
         $user = User::find(Auth::user()->id);
+
+        $roles = $user->roles->pluck('name');
+        $role = "";
+        foreach ($roles as $role) {
+            $role = $role;
+        }
+        if ($role == "Cliente") {
+            $profile = Customer::where('id_user', $user->id)->first();
+        }
+        if ($role == "Empresario") {
+            $profile = Merchant::where('id_user', $user->id)->first();
+        }
+        if ($role == "Repartidor") {
+            $profile = DeliveryMan::where('id_user', $user->id)->first();
+        }
+
         $user->name = $request->name;
-        $user->last_name = $request->name;
-        $user->password = $this->generatePassword($request->password);
+        $user->phone = $request->phone;
+        $user->username = $request->name . " " . time();
         if ($request->url_image) {
             if ($user->url_image != $request->url_image) {
                 $user->url_image = $this->UploadImage($request);
             }
         }
+
+
+        $profile->name = $request->name;
+        $profile->last_name = $request->name;
+        $profile->phone = $request->phone;
+        $profile->ci = $request->ci;
+
         $user->update();
+        $profile->update();
         return response()->json([
             'success' => true,
             'url_image' => $user->url_image
+        ]);
+    }
+
+    public function ChangePassword(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $user->password = $this->generatePassword($request->password);
+        $user->update();
+        return response()->json([
+            'success' => true,
+            'user ' => $user
         ]);
     }
 

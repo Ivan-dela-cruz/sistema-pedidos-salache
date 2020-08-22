@@ -24,7 +24,8 @@ Route::post('login','api\AuthController@login');
 Route::post('register','api\AuthController@register');
 Route::get('logout','api\AuthController@logout');
 Route::post('save-profile-user','api\AuthController@profileUser')->name('save-profile-user')->middleware('jwtAuth');
-
+Route::get('get-profile','api\AuthController@getProfile')->name('get-profile')->middleware('jwtAuth');
+Route::post('change-password','api\AuthController@ChangePassword')->name('change-password')->middleware('jwtAuth');
 //RUTAS PARA LAS typos de epmresa
 Route::get('api-companies-type','admin\CompanyTypeController@getApiCompanies')->name('api-companies-type')->middleware('jwtAuth');
 

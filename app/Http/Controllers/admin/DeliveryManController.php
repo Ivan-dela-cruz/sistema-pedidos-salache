@@ -100,7 +100,7 @@ class DeliveryManController extends Controller
                 $user->url_image = $this->UploadImage($request);
                 $user->password = $this->generatePassword($request->ci);
                 $user->save();
-                $role = Role::findById(3);
+                $role = Role::findById(4);
                 $user->assignRole($role);
 
                 ///GURADAMOS LA TABLA DELIVERMAN
