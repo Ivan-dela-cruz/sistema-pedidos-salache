@@ -6,6 +6,7 @@ use App\Company;
 use App\Customer;
 use App\DetailOrder;
 use App\Http\Controllers\Controller;
+use App\Merchant;
 use App\Order;
 use App\User;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -30,6 +31,8 @@ class OrderController extends Controller
     public function orders()
     {
         $user = User::find(Auth::user()->id);
+        $merchant = Merchant::where('id_user', $user->id)->first();
+        $company = Company::where('id_merchant', $merchant->id)->first();
         $orders = DB::table('orders')
             ->join('customers', 'orders.id_customer', '=', 'customers.id')
             ->join('companies', 'orders.id_company', '=', 'companies.id')
@@ -54,7 +57,7 @@ class OrderController extends Controller
                 'customers.ci', 'customers.address as address_cus', 'customers.phone as phone_cus', 'customers.email as email_cus',
                 'companies.company_address', 'companies.company_ruc', 'companies.company_phone',
                 'companies.longitude as longitude_com', 'companies.latitude as latitude_com')
-            ->where('orders.id_user', $user->id)
+            ->where('orders.id_company', $company->id)
             ->get();
 
         return response()->json([
@@ -258,7 +261,8 @@ class OrderController extends Controller
 
     }
 
-    public function downloadPdfOrder($id){
-       // $order =
+    public function downloadPdfOrder($id)
+    {
+        // $order =
     }
 }
