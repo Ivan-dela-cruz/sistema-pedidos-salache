@@ -6,9 +6,11 @@ use App\Company;
 use App\CompanyType;
 use App\Http\Controllers\Controller;
 use App\Merchant;
+use App\User;
 use Exception;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 class CompanyController extends Controller
@@ -157,5 +159,24 @@ class CompanyController extends Controller
         $rutaPdf = $company->url_file;
         $name_pdf = "documento-adjunto-" . $company->company_name;
         return response()->download($rutaPdf, $name_pdf . ".pdf");
+    }
+
+    public function getCompaniesUser(){
+        try{
+            $user = User::find(Auth::user()->id);
+            $merchant = Merchant::where('id_user',$user->id)->first();
+            $companies = Company::where('id_merchant',$merchant->id)->where('status','activo')->get();
+
+            return response()->json([
+                'success'=>true,
+                'companies'=>$companies
+            ],200);
+        }catch (Exception $e){
+            return response()->json([
+                'success' => false,
+                'message' => 'auth fail' . $e
+            ]);
+        }
+
     }
 }

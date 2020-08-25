@@ -14,6 +14,7 @@ use App\RequestForm;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 use Intervention\Image\Facades\Image;
@@ -310,4 +311,5 @@ class MerchantController extends Controller
 
         }
     }
+
 }

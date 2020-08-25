@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\CompanyType;
 use App\Convenio;
 use App\DeliveryMan;
+use App\Order;
 use App\OrderDeliveryRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDeliveryManValidatePost;
@@ -334,7 +335,9 @@ class DeliveryManController extends Controller
         $request_delivery->url_request = "#";
         $request_delivery->total = 0;
         $request_delivery->save();
-
+        $order = Order::find($request->id_order);
+        $order->status = "no entregado";
+        $order->save();
         return response()->json([
             'success' => true,
             'request' => $request_delivery
@@ -342,8 +345,10 @@ class DeliveryManController extends Controller
 
     }
 
-    public function getRequestCompanyDelivery(Request $request){
-        //$user = User::find(Auth::user()->id);
+    public function getRequestCompanyDelivery(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $delivery = DeliveryMan::where('id_user', $user->id)->first();
         $orders = DB::table('order_delivery_requests')
             ->join('delivery_men', 'order_delivery_requests.id_delivery', '=', 'delivery_men.id')
             ->join('companies', 'order_delivery_requests.id_company', '=', 'companies.id')
@@ -374,12 +379,106 @@ class DeliveryManController extends Controller
                 'companies.company_address', 'companies.company_ruc', 'companies.company_phone',
                 'companies.longitude as longitude_com', 'companies.latitude as latitude_com'
             )
-            ->where('order_delivery_requests.id_delivery', 2)
+            ->where('order_delivery_requests.id_delivery', $delivery->id)
+            ->where('order_delivery_requests.status', 'enviado')
             ->get();
 
         return response()->json([
             'success' => true,
             'orders' => $orders
         ]);
+    }
+
+    public function getRequestCompanyDeliveryCustomer(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $delivery = DeliveryMan::where('id_user', $user->id)->first();
+        $orders = DB::table('order_delivery_requests')
+            ->join('delivery_men', 'order_delivery_requests.id_delivery', '=', 'delivery_men.id')
+            ->join('companies', 'order_delivery_requests.id_company', '=', 'companies.id')
+            ->join('orders', 'order_delivery_requests.id_order', '=', 'orders.id')
+            ->select(
+                'order_delivery_requests.id_order',
+                'order_delivery_requests.id_company',
+                'order_delivery_requests.id_delivery',
+
+                'order_delivery_requests.id',
+                'order_delivery_requests.datetime',
+                'order_delivery_requests.status as status_request',
+
+                'orders.id_customer',
+                'orders.order_number',
+                'orders.latitude',
+                'orders.longitude',
+                'orders.date',
+
+                'orders.total',
+                'orders.status',
+                'orders.longitude as longitude_order',
+                'orders.latitude as latitude_order',
+                'orders.name_company',
+                'orders.name_customer',
+                'orders.url_order',
+
+                'companies.company_address', 'companies.company_ruc', 'companies.company_phone',
+                'companies.longitude as longitude_com', 'companies.latitude as latitude_com'
+            )
+            ->where('order_delivery_requests.id_delivery', $delivery->id)
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'orders' => $orders
+        ]);
+    }
+
+
+    public function confirmOrder($id)
+    {
+        $order_re = OrderDeliveryRequest::find($id);
+        $order_re->status = "aceptado";
+        $order_re->save();
+
+        $order = Order::find($order_re->id_order);
+        $order->status = "confirmado";
+        $order->save();
+
+        return response()->json([
+            'success' => true,
+            'order' => $order
+        ]);
+
+    }
+
+    public function declineOrder($id)
+    {
+        $order_re = OrderDeliveryRequest::find($id);
+        $order_re->status = "rechazado";
+        $order_re->save();
+
+        $order = Order::find($order_re->id_order);
+        $order->status = "pendiente";
+        $order->save();
+        return response()->json([
+            'success' => true,
+            'order' => $order
+        ]);
+
+    }
+
+    public function completeOrder($id)
+    {
+        $order_re = OrderDeliveryRequest::find($id);
+        $order_re->status = "entregado";
+        $order_re->save();
+
+        $order = Order::find($order_re->id_order);
+        $order->status = "entregado";
+        $order->save();
+        return response()->json([
+            'success' => true,
+            'order' => $order
+        ]);
+
     }
 }

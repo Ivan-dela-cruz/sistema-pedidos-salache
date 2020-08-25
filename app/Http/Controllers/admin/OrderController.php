@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Company;
 use App\Customer;
+use App\DeliveryMan;
 use App\DetailOrder;
 use App\Http\Controllers\Controller;
 use App\Merchant;
@@ -31,8 +32,7 @@ class OrderController extends Controller
     public function orders()
     {
         $user = User::find(Auth::user()->id);
-        $merchant = Merchant::where('id_user', $user->id)->first();
-        $company = Company::where('id_merchant', $merchant->id)->first();
+        $customer = Customer::where("id_user", $user->id)->first();
         $orders = DB::table('orders')
             ->join('customers', 'orders.id_customer', '=', 'customers.id')
             ->join('companies', 'orders.id_company', '=', 'companies.id')
@@ -57,7 +57,82 @@ class OrderController extends Controller
                 'customers.ci', 'customers.address as address_cus', 'customers.phone as phone_cus', 'customers.email as email_cus',
                 'companies.company_address', 'companies.company_ruc', 'companies.company_phone',
                 'companies.longitude as longitude_com', 'companies.latitude as latitude_com')
+            ->where('orders.id_customer', $customer->id)
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'orders' => $orders
+        ]);
+    }
+
+    public function ordersDelivery()
+    {
+        $user = User::find(Auth::user()->id);
+        $delivery = DeliveryMan::where('id_user', $user->id)->first();
+        $orders = DB::table('order_delivery_requests')
+            ->join('delivery_men', 'order_delivery_requests.id_delivery', '=', 'delivery_men.id')
+            ->join('companies', 'orders.id_company', '=', 'companies.id')
+            ->join('orders', 'order_delivery_requests.id_order', '=', 'orders.id')
+            ->select(
+                'orders.id_user',
+                'orders.id_company',
+                'orders.id_customer',
+                'orders.id',
+                'orders.order_number',
+                'orders.latitude',
+                'orders.longitude',
+                'orders.date',
+                'orders.created_at',
+                'orders.total',
+                'orders.status',
+                'orders.longitude as longitude_order',
+                'orders.latitude as latitude_order',
+                'orders.name_company',
+                'orders.name_customer',
+                'orders.url_order',
+                'customers.ci', 'customers.address as address_cus', 'customers.phone as phone_cus', 'customers.email as email_cus',
+                'companies.company_address', 'companies.company_ruc', 'companies.company_phone',
+                'companies.longitude as longitude_com', 'companies.latitude as latitude_com')
+            ->where('orders.id_company', $delivery->id)
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'orders' => $orders
+        ]);
+    }
+
+    public function ordersMerchant($id)
+    {
+        $company = Company::find($id);
+        $orders = DB::table('orders')
+            ->join('customers', 'orders.id_customer', '=', 'customers.id')
+            ->join('companies', 'orders.id_company', '=', 'companies.id')
+            ->join('users', 'orders.id_user', '=', 'users.id')
+            ->select(
+                'orders.id_user',
+                'orders.id_company',
+                'orders.id_customer',
+                'orders.id',
+                'orders.order_number',
+                'orders.latitude',
+                'orders.longitude',
+                'orders.date',
+                'orders.created_at',
+                'orders.updated_at',
+                'orders.total',
+                'orders.status',
+                'orders.longitude as longitude_order',
+                'orders.latitude as latitude_order',
+                'orders.name_company',
+                'orders.name_customer',
+                'orders.url_order',
+                'customers.ci', 'customers.address as address_cus', 'customers.phone as phone_cus', 'customers.email as email_cus',
+                'companies.company_address', 'companies.company_ruc', 'companies.company_phone',
+                'companies.longitude as longitude_com', 'companies.latitude as latitude_com')
             ->where('orders.id_company', $company->id)
+            ->orderBy('orders.updated_at','DESC')
             ->get();
 
         return response()->json([
@@ -264,5 +339,17 @@ class OrderController extends Controller
     public function downloadPdfOrder($id)
     {
         // $order =
+    }
+
+    public function DeativateOrder($id)
+    {
+        $order = Order::find($id);
+        $order->status = "anulado";
+        $order->save();
+
+        return response()->json([
+            'success' => true,
+            'order' => $order
+        ]);
     }
 }

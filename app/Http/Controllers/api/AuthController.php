@@ -172,7 +172,7 @@ class AuthController extends Controller
 
 
         $profile->name = $request->name;
-        $profile->last_name = $request->name;
+        $profile->last_name = $request->last_name;
         $profile->phone = $request->phone;
         $profile->ci = $request->ci;
 
