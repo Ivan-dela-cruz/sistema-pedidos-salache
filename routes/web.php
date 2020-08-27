@@ -38,6 +38,11 @@ Route::get('merchant', function () {
 Route::get('deliveryman', function () {
     return view('forms.deliveryman');
 });
+
+Route::get('download-pdf-convenio/{id}', 'admin\ConvenioController@downloadpdf')->name('download-pdf-convenio');
+
+
+
 Route::middleware('auth')->group(function () {
 
     Route::get('admin', 'HomeController@index')->name('admin');
@@ -167,7 +172,6 @@ Route::middleware('auth')->group(function () {
     Route::get('edit-convenio/{id}', 'admin\ConvenioController@edit')->name('edit-convenio');
     Route::get('get-convenios', 'admin\ConvenioController@getConvenio')->name('get-convenios');
     Route::get('show-convenio/{id}', 'admin\ConvenioController@show')->name('show-convenio');
-    Route::get('download-pdf-convenio/{id}', 'admin\ConvenioController@downloadpdf')->name('download-pdf-convenio');
 
     ///RUTAS ORDENES
     Route::get('get-pdf-order/{id}', 'admin\OrderController@generatePDFOrder')->name('get-pdf-order');

@@ -481,4 +481,18 @@ class DeliveryManController extends Controller
         ]);
 
     }
+
+    public function updatePosition(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $delivery = DeliveryMan::where('id_user', $user->id)->first();
+        $delivery->latitude = $request->latitude;
+        $delivery->longitude = $request->longitude;
+        $delivery->save();
+        return response()->json([
+            'success' => true,
+            'delivery' => $delivery
+        ]);
+
+    }
 }

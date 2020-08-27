@@ -56,7 +56,7 @@
                 <ul class="navbar-nav align-items-lg-center ml-lg-auto">
                     <li class="nav-item">
                         <a class="nav-link nav-link-icon" href="#" target="_blank"
-                           data-toggle="tooltip" title="Visita nuestro en Facebook">
+                           data-toggle="tooltip" title="Visita nuestro Facebook">
                             <i class="fa fa-facebook-square"></i>
                             <span class="nav-link-inner--text d-lg-none">Facebook</span>
                         </a>

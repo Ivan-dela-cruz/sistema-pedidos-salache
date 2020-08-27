@@ -61,3 +61,4 @@ Route::get('api-get-request-delivery-customer','admin\DeliveryManController@getR
 Route::get('api-request-delivery-decline/{id}','admin\DeliveryManController@declineOrder')->name('api-request-delivery-decline')->middleware('jwtAuth');
 Route::get('api-request-delivery-confirm/{id}','admin\DeliveryManController@confirmOrder')->name('api-request-delivery-confirm')->middleware('jwtAuth');
 Route::get('api-request-delivery-complete/{id}','admin\DeliveryManController@completeOrder')->name('api-request-delivery-complete')->middleware('jwtAuth');
+Route::post('api-update-position','admin\DeliveryManController@updatePosition')->name('api-update-position')->middleware('jwtAuth');
