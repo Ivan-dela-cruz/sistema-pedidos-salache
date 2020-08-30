@@ -232,7 +232,7 @@
                                                 <span class="input-group-text"><i class="ni ni-shop"></i></span>
                                             </div>
 
-                                            {!! Form::text('company_ruc', null, ['class'=>'form-control','placeholder'=>'ruc-cédula']) !!}
+                                            {!! Form::text('company_ruc', null, ['class'=>'form-control','placeholder'=>'Ruc-Cédula']) !!}
                                         </div>
                                     </div>
                                     @error('company_ruc')
@@ -276,13 +276,9 @@
 
                                 <div class="col-md-12">
                                     <label for="" class="text-muted">Seleccione su convenio
+                                         <small> (<span class="text-info font-weight-700">Importante! </span>  Si no tiene un convenio acepte nuestros términos y condiciones)</small>
                                     </label>
-                                    <label for="" class="text-muted">
-
-                                        <small> (<span class="text-info font-weight-700">¡Importante! </span> Si no
-                                            tiene un convenio acepte nuestros terminos y condiciones al final)</small>
-
-                                    </label>
+                                   
 
                                     <div class="form-group">
                                         <div class="input-group input-group-alternative mb-3">
@@ -312,13 +308,19 @@
 
                                         {!! Form::file('url_file', ['class'=>'custom-file-input pb-3','id'=>'customFile']) !!}
                                         <label class="custom-file-label" for="customFile">Documento PDF: copia cédula o
-                                            pasaporte y certificado de votacón</label>
+                                            pasaporte y certificado de votación</label>
                                         @error('url_file')
                                         <div class="alert alert-danger alert-dismissible fade show pb-3" role="alert">
                                             {{ $message }}.
                                         </div>
                                         @enderror
                                     </div>
+
+                                     <label for="" class="text-muted">
+
+                                        <small> <span class="text-info font-weight-700">Importante! </span>  Subir la copia de sus documentos personales y ruc de la empresa si lo tiene , datos llenos  Y convenio firmado . importante subir  un solo  documento generado en pdf.</small>
+
+                                    </label>
 
 
                                 </div>
@@ -345,7 +347,7 @@
                             <div class="form-check form-check-inline">
                                 <label id="rd_not">
                                     <input name="convenio" value="not" id="check_terminos" type="checkbox">
-                                    Acepto terminos y condiciones
+                                    Acepto términos y condiciones
                                 </label>
                                 <br>
                             </div>

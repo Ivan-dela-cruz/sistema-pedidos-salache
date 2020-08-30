@@ -27,7 +27,7 @@
                                 Bienvenido a una aventura emprendedora fácil y segura!!.
                                 Bienvenido a la aplicación de la Tienda Virtual UTC!!
                                 Fiel a sus principios de servicio y vinculación con el pueblo, la Universidad
-                                Técnica de cotopaxi y su centro de emprendimiento, presentan esta divertida y
+                                Técnica de Cotopaxi y su Centro de Emprendimiento, presentan esta divertida y
                                 útil aplicación en apoyo a la reactivación económica del centro del país
 
                             </p>
@@ -35,18 +35,13 @@
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-left">
                         <center><p align="justify">
-
-                            </p>
-                        </center>
-                        <ul align="justify">
-                            <li><i class="ri-check-double-line"></i> Fortalecer la vinculación de la universidad con el
+                                Nuestro principio es fortalecer la vinculación de la universidad con el
                                 pueblo, para aplacar y mejorar los efectos negativos generados por la emergencia
                                 sanitaria a través del desarrollo productivo y comercial de nuestros emprendedores con
-                                la generación de una Tienda Virtual y un Aplicativo (APP) para celular
-                            </li>
-
-                        </ul>
-
+                                la generación de un aplicativo web y móvil.
+                            </p>
+                        </center>
+                       
                     </div>
                 </div>
 
@@ -200,7 +195,7 @@
                 <div class="row" data-aos="fade-up">
                     <div class="col-lg-12 d-flex justify-content-center">
                         <ul id="portfolio-flters">
-                            <li data-filter=".filter-card">Variedad</li>
+                            <li data-filter=".filter-card">VARIEDAD DE PRODUCTOS Y SERVICIOS</li>
 
                     </div>
                 </div>

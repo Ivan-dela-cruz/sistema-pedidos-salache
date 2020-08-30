@@ -59,9 +59,8 @@
           <div class="col-lg-3 col-md-6 footer-contact">
             <h3>Tienda Virtual UTC</h3>
             <p>
-              Av Simón Rodríguez, Latacunga <br>
-              Latacunga<br>
-              Ecuador <br><br>
+              Av. Simón Rodríguez s/n Barrio El Ejido Sector San Felipe. <br>
+              Latacunga - Ecuador.<br>
               <strong>Teléfono:</strong> 0998397454<br>
               <strong>Email:</strong>pablo.herrera0259@utc.edu.ec<br>
             </p>
