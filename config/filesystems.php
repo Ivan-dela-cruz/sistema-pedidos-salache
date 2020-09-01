@@ -51,6 +51,10 @@ return [
             'driver' => 'local',
             'root'   => public_path('img/users'),
         ],
+        'word' => [
+            'driver' => 'local',
+            'root'   => public_path('storage/word'),
+        ],
         'documents' => [
             'driver' => 'local',
             'root'   => public_path('storage/documents'),

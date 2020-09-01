@@ -19,7 +19,8 @@ class CreateConveniosTable extends Migration
             $table->string('legal_representative');
             $table->date('start');
             $table->date('end');
-            $table->string('url_document');
+            $table->string('url_document')->nullable();
+            $table->string('url_word')->nullable();
             $table->enum('status', ['activo', 'inactivo','base'])->default('activo');
             $table->timestamps();
         });

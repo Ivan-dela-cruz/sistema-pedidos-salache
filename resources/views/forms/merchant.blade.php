@@ -425,7 +425,7 @@
             id = value_select;
         }
         if(id !=0){
-            let url = "../download-pdf-convenio/"+id;
+            let url = "../download-word-convenio/"+id;
             window.location.href=url;
         }
     });

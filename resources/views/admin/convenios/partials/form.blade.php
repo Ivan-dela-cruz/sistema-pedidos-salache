@@ -33,6 +33,17 @@
             @enderror
         </div>
     </div>
+     <div class="col-lg-12">
+        <div class="form-group">
+            {!! Form::label('url_document', 'Documento (WORD)') !!}
+            {!! Form::file('url_word', ['id'=>'url_word','class'=>'form-control']) !!}
+            @error('url_word')
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ $message }}.
+            </div>
+            @enderror
+        </div>
+    </div>
     <div class="col-lg-6">
         <div class="form-group">
             {!! Form::label('start', 'Fecha de inicio') !!}

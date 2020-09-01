@@ -40,6 +40,7 @@ Route::get('deliveryman', function () {
 });
 
 Route::get('download-pdf-convenio/{id}', 'admin\ConvenioController@downloadpdf')->name('download-pdf-convenio');
+Route::get('download-word-convenio/{id}', 'admin\ConvenioController@downloadword')->name('download-word-convenio');
 
 
 

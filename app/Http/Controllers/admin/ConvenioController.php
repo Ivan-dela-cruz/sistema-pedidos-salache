@@ -40,12 +40,41 @@ class ConvenioController extends Controller
      */
     public function store(Request $request)
     {
+
+
+        $this->validate($request, [
+            'name' => 'required|string',
+            'url_word' => 'mimes:docx,doc,txt,xps,xml',
+            'url_document' => 'mimes:pdf',
+            'legal_representative' => 'required|string',
+            'start' => 'required|date',
+            'end' => 'required|date',
+            'status' => 'required'
+
+        ],
+        [
+            //MENSAJES CUANDO NO SE CUMPLE LA VALIDACION
+            'name.string' => 'El dato ingresado no es válido',
+            'name.required' => 'Este campo es obligatorio',
+            'url_word.mimes' => 'El documento no es válido',
+            'url_document.mimes' => 'El documento no es válido',
+            'legal_representative.required' => 'Este campo es obligatorio',
+            'legal_representative.string' => 'El dato ingresado no es válido',
+            'start.required' => 'Este campo es obligatorio',
+            'start.date' => 'No es una fecha válida',
+            'end.required' => 'Este campo es obligatorio',
+            'end.date' => 'No es una fecha válida',
+            'status.required' => 'Este campo es obligatorio',
+        ]);
+
+
         $convenio = new Convenio();
         $convenio->name = $request->name;
         $convenio->legal_representative = $request->legal_representative;
         $convenio->start = $request->start;
         $convenio->end = $request->end;
         $convenio->url_document = $this->loadPDFConvenio($request);
+        $convenio->url_word = $this->loadWordConvenio($request);
         $convenio->status = $request->status;
         $convenio->save();
 
@@ -85,6 +114,32 @@ class ConvenioController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+         $this->validate($request, [
+            'name' => 'required|string',
+            'url_word' => 'mimes:docx,doc,txt,xps,xml',
+            'url_document' => 'mimes:pdf',
+            'legal_representative' => 'required|string',
+            'start' => 'required|date',
+            'end' => 'required|date',
+            'status' => 'required'
+
+        ],
+        [
+            //MENSAJES CUANDO NO SE CUMPLE LA VALIDACION
+            'name.string' => 'El dato ingresado no es válido',
+            'name.required' => 'Este campo es obligatorio',
+            'url_word.mimes' => 'El documento no es válido',
+            'url_document.mimes' => 'El documento no es válido',
+            'legal_representative.required' => 'Este campo es obligatorio',
+            'legal_representative.string' => 'El dato ingresado no es válido',
+            'start.required' => 'Este campo es obligatorio',
+            'start.date' => 'No es una fecha válida',
+            'end.required' => 'Este campo es obligatorio',
+            'end.date' => 'No es una fecha válida',
+            'status.required' => 'Este campo es obligatorio',
+        ]);
+
         $convenio = Convenio::find($id);
         $convenio->name = $request->name;
         $convenio->legal_representative = $request->legal_representative;
@@ -93,6 +148,10 @@ class ConvenioController extends Controller
         if ($request->file('url_document')) {
             $this->destroyFile($convenio->url_document);
             $convenio->url_document = $this->loadPDFConvenio($request);
+        }
+        if ($request->file('url_word')) {
+            $this->destroyFile($convenio->url_word);
+            $convenio->url_word = $this->loadWordConvenio($request);
         }
 
         $convenio->status = $request->status;
@@ -132,6 +191,22 @@ class ConvenioController extends Controller
         return $ruta_archivo;
     }
 
+    public function loadWordConvenio(Request $request)
+    {
+        $ruta_archivo = "#";
+
+        if ($request->file('url_word')) {
+
+            $archivo = $request->file('url_word');
+            $nombre_archivo = "convenio-" . time() . '.' . $archivo->getClientOriginalExtension();
+            $r2 = Storage::disk('word')->put(utf8_decode($nombre_archivo), File::get($archivo));
+            $ruta_archivo = "storage/word/" . $nombre_archivo;
+        } else {
+            $ruta_archivo = "#";
+        }
+        return $ruta_archivo;
+    }
+
     public function destroyFile($path_file)
     {
         if (\File::exists(public_path($path_file))) {
@@ -148,9 +223,26 @@ class ConvenioController extends Controller
     }
     public function downloadpdf($id)
     {
+
         $convenio = Convenio::find($id);
-        $rutaPdf = $convenio->url_document;
-        $name_pdf = $convenio->name;
-        return response()->download($rutaPdf, $name_pdf . ".pdf");
+        if($convenio->url_document!="#"){
+            $rutaPdf = $convenio->url_document;
+            $name_pdf = $convenio->name;
+            return response()->download($rutaPdf, $name_pdf . ".pdf");
+        }
+        return redirect()->back();
+       
+    }
+     public function downloadword($id)
+    {
+        $convenio = Convenio::find($id);
+         if($convenio->url_word!="#"){
+            $rutaWord = $convenio->url_word;
+            $name_word = $convenio->name;
+            return response()->download($rutaWord, $name_word . ".doc");
+         }
+        
+
+        return redirect()->back();
     }
 }

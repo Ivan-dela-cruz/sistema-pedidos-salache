@@ -57,14 +57,22 @@
                     <div class="ibox-tools">
                         <a class="text-white " href="{{route('download-pdf-convenio',$convenio->id)}}">
                             <i class="fa fa-download"></i>
-                            Descargar</a>
+                            PDF</a>
+                            <a class="text-white " href="{{route('download-word-convenio',$convenio->id)}}">
+                            <i class="fa fa-download"></i>
+                            Word</a>
                     </div>
                 </div>
                 <div class="ibox-body text-center">
-                    <embed src="{{asset($convenio->url_document)}}"
-                           type="application/pdf"
-                           width="680px"
-                           height="450px">
+                        @if ($convenio->url_document!='#')
+                           <embed src="{{asset($convenio->url_document)}}"
+                               type="application/pdf"
+                               width="680px"
+                               height="450px">
+                        @endif
+                        @if ($convenio->url_word!='#')
+                            <iframe src="https://view.officeapps.live.com/op/view.aspx?src={{asset($convenio->url_word)}}" frameborder="0" style="width:100%;min-height:640px;"></iframe>
+                        @endif    
                 </div>
             </div>
 

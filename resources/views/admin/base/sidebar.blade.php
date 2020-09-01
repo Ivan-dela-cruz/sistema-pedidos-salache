@@ -118,7 +118,7 @@
             @endcan
             @can('leer item')
                 <li>
-                    <a href="javascript:;"><i class="sidebar-item-icon fa fa-car"></i>
+                    <a href="javascript:;"><i class="sidebar-item-icon fa fa-file"></i>
                         <span class="nav-label">Convenios</span><i class="fa fa-angle-left arrow"></i></a>
                     <ul class="nav-2-level collapse">
                         <li>
@@ -135,7 +135,7 @@
             @endcan
             @can('leer item')
                 <li>
-                    <a href="javascript:;"><i class="sidebar-item-icon fa fa-folder"></i>
+                    <a href="javascript:;"><i class="sidebar-item-icon fa fa-cog"></i>
                         <span class="nav-label">Configuraciones</span><i class="fa fa-angle-left arrow"></i></a>
                     <ul class="nav-2-level collapse">
 
