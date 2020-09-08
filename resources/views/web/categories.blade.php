@@ -97,18 +97,18 @@
 
                         </div>
 
-                        <div class="col-lg-4 col-md-5 d-flex align-items-stretch">
-                            <div class="member" data-aos="fade-up" data-aos-delay="200">
-                                <div class="member-img">
-                                    <img src="{{asset('assets2/img/categorias5.jpg')}}" class="img-fluid" alt="">
+                       {{-- <div class="col-lg-4 col-md-5 d-flex align-items-stretch">
+                              <div class="member" data-aos="fade-up" data-aos-delay="200">
+                                  <div class="member-img">
+                                        <img src="{{asset('assets2/img/categorias5.jpg')}}" class="img-fluid" alt="">
 
+                                   </div>
+                                    <div class="member-info">
+                                        <h4>Transporte</h4>
+                                        <span></span>
+                                    </div>
                                 </div>
-                                <div class="member-info">
-                                    <h4>Transporte</h4>
-                                    <span></span>
-                                </div>
-                            </div>
-                        </div>
+                            </div> --}}
 
 
                     </div>
