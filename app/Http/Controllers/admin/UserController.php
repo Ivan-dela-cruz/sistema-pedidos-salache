@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Intervention\Image\Facades\Image;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class UserController extends Controller
 {
@@ -40,7 +41,7 @@ class UserController extends Controller
 
     public function getCustomers()
     {
-        $customers = Customer::orderBy('created_at','ASC')->paginate(10);
+        $customers = Customer::orderBy('created_at','ASC')->get();
         return view('admin.customers.index',compact('customers'));
     }
 
@@ -163,7 +164,7 @@ class UserController extends Controller
      {
         
         $user = User::find($id);
-        $user->password = $request->password;
+        $user->password =$this->generatePassword($request->password);
         $user->save();
         return redirect()->route('profile')->with('status', '¡Tú contraseña ha sido actualizado  satisfactoriamente!');;
     }
@@ -223,8 +224,19 @@ class UserController extends Controller
         return response()->json(['users'=>$users],200);
     }
 
-    public function getProfile(){
-
+    public function getPdfUsers(){
+        $users = User::all();
+        $pdf = PDF::loadView('pdf.usuarios', compact('users'));
+        //$pdf->setPaper('A4', 'landscape');
+        $nombrePdf = 'reporte usuarios-' .time() . '.pdf';
+        return $pdf->download($nombrePdf);
+    }
+    public function getPdfCustomers(){
+        $customers = Customer::all();
+        $pdf = PDF::loadView('pdf.customers', compact('customers'));
+        //$pdf->setPaper('A4', 'landscape');
+        $nombrePdf = 'reporte cliente-' .time() . '.pdf';
+        return $pdf->download($nombrePdf);
     }
 
 }

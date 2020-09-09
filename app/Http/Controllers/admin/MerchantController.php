@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
+use Barryvdh\DomPDF\Facade as PDF;
+
+
 class MerchantController extends Controller
 {
     /**
@@ -311,5 +314,22 @@ class MerchantController extends Controller
 
         }
     }
+
+    public function getPdfMerchant(){
+        $merchants = Merchant::all();
+        $pdf = PDF::loadView('pdf.merchants', compact('merchants'));
+        //$pdf->setPaper('A4', 'landscape');
+        $nombrePdf = 'reporte empresarios-' .time() . '.pdf';
+        return $pdf->download($nombrePdf);
+    }
+
+    public function getPdfCompanies(){
+        $companies = Company::all();
+        $pdf = PDF::loadView('pdf.companies', compact('companies'));
+        //$pdf->setPaper('A4', 'landscape');
+        $nombrePdf = 'reporte empresas-' .time() . '.pdf';
+        return $pdf->download($nombrePdf);
+    }
+
 
 }

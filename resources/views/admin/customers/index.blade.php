@@ -6,17 +6,22 @@
         <div class="ibox">
             <div class="ibox-head bg-info">
                 <div class="ibox-title text-white">Clientes registrados</div>
-                <div class="ibox-tools">
-
-                </div>
+                
             </div>
             <div class="ibox-body">
+                <div class="ibox-tools">
+                        <h5 class="d-none d-lg-block inbox-title">
+                            <a href="{{route('get-pdf-customers')}}" class="btn btn-primary btn-sm pull-right">
+                                <i class="fa fa-print"></i>
+                                Imprimir</a>
+                            </h5>
+                </div>
                 @if (count($customers)>0)
                     <div class="table-products table-responsive">
                         @include('admin.customers.table')
 
                     </div>
-                    {{$customers->render()}}
+                  
                 @else
                     <h4 class="text-center"> <i class="fa fa-search font-20 text-info"></i> No hay datos para mostrar </h4>
                 @endif

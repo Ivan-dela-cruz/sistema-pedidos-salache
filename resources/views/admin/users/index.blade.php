@@ -17,8 +17,14 @@
                 </div>
                 <div class="ibox-body">
                     <div class="d-flex justify-content-between py-3">
-                        <h5 class="d-none d-lg-block inbox-title"><i class="fa fa-user m-r-5"></i>
-                            Usuarios({{count($users)}})</h5>
+
+                        <h5 class="d-none d-lg-block inbox-title">
+                            <a href="{{route('get-pdf-users')}}" class="btn btn-primary">
+                                <i class="fa fa-print"></i>
+                                Imprimir</a>
+                            <i class="fa fa-user m-r-5"></i>
+                            Usuarios({{count($users)}}) </h5>
+                           
                         {!! Form::open(['route' => 'get-user', 'method'=>'GET','autocomplete'=>'off','role'=>'search','class'=>'mail-search']) !!}
                         <div class="input-group">
                             <div class="input-group-btn">

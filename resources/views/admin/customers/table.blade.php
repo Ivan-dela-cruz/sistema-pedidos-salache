@@ -1,4 +1,4 @@
-<table class="table table-striped table-bordered table-hover">
+<table class="table table-striped table-bordered table-hover" id="example-table" cellspacing="0" width="100%">
     <thead>
         <tr>
             <th>Nombres</th>

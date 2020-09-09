@@ -8,6 +8,16 @@
                 <div class="ibox-title text-white">Listado de empresas</div>
             </div>
             <div class="ibox-body">
+                 <div class="ibox-tools">
+                        <h5 class="d-none d-lg-block inbox-title">
+                            <a href="{{route('get-pdf-merchants')}}" class="btn btn-primary btn-sm pull-right">
+                                <i class="fa fa-print"></i>
+                                Empresarios</a>
+                                <a href="{{route('get-pdf-companies')}}" class="btn btn-success btn-sm pull-right">
+                                <i class="fa fa-print"></i>
+                                Empresas</a>
+                            </h5>
+                </div>
 
                 @if (count($merchants)>0)
                     <div class="table-users table-responsive">

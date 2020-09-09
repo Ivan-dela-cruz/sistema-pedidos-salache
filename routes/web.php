@@ -99,9 +99,9 @@ Route::middleware('auth')->group(function () {
 //RUTAS PARA LOS USUARIOS
     Route::get('users', 'admin\UserController@getUsers')->name('users');
     Route::get('create-user', 'admin\UserController@create')->name('create-user');
-     Route::get('profile', 'admin\UserController@show')->name('profile');
-     Route::put('update-profile/{id}', 'admin\UserController@updateProfile')->name('update-profile');
-     Route::put('update-password/{id}', 'admin\UserController@updatePassword')->name('update-password');
+    Route::get('profile', 'admin\UserController@show')->name('profile');
+    Route::put('update-profile/{id}', 'admin\UserController@updateProfile')->name('update-profile');
+    Route::put('update-password/{id}', 'admin\UserController@updatePassword')->name('update-password');
     Route::get('get-user', 'admin\UserController@index')->name('get-user');
     Route::get('edit-user/{id}', 'admin\UserController@edit')->name('edit-user');
     Route::post('store-user', 'admin\UserController@store')->name('store-user');
@@ -180,4 +180,11 @@ Route::middleware('auth')->group(function () {
     ///RUTAS ORDENES
     Route::get('get-pdf-order/{id}', 'admin\OrderController@generatePDFOrder')->name('get-pdf-order');
     Route::get('get-company-orders','admin\OrderController@index')->name('get-company-orders');
+
+
+    ///URL REPORTES
+     Route::get('get-pdf-users', 'admin\UserController@getPdfUsers')->name('get-pdf-users');
+     Route::get('get-pdf-customers', 'admin\UserController@getPdfCustomers')->name('get-pdf-customers');
+     Route::get('get-pdf-merchants', 'admin\MerchantController@getPdfMerchant')->name('get-pdf-merchants');
+ Route::get('get-pdf-companies', 'admin\MerchantController@getPdfCompanies')->name('get-pdf-companies');
 });

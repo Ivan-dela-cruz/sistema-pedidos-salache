@@ -21,7 +21,11 @@
             <td>{{$merchant->last_name}} {{$merchant->name}}</td>
             <td>{{$merchant->email}}</td>
             <td>{{$merchant->phone}}</td>
-            <td>{{$merchant->company_name}}</td>
+            <td>
+                 @foreach ($merchant->companies as $company)
+                   {{$company->company_name}}
+                 @endforeach
+            </td>
             <td>{{\Carbon\Carbon::parse($merchant->updated_at)->diffForhumans()}}</td>
 
             <td>
