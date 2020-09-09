@@ -3,7 +3,7 @@
 
     <div class="col-lg-6">
         <div class="form-group">
-            {!! Form::label('name', 'Nombres') !!}
+            {!! Form::label('name', 'Nombres y Apellido') !!}
             {!! Form::text('name',null, ['class'=>'form-control']) !!}
             @error('name')
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -15,7 +15,7 @@
 
     <div class="col-lg-6">
         <div class="form-group">
-            {!! Form::label('username', 'Nombre de usuario') !!}
+            {!! Form::label('username', 'Password') !!}
             {!! Form::text('username',null, ['class'=>'form-control']) !!}
             @error('username')
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
