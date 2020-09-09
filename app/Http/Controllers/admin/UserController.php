@@ -6,7 +6,11 @@ use App\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserPost;
 use App\Http\Requests\UpdateUserPut;
+use App\Http\Requests\UpdateProlifePut;
 use App\User;
+use Auth;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role as ModelsRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -68,7 +72,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->status = $request->status;
         $user->url_image = $this->UploadImage($request);
-        $user->password = $this->generatePassword($request->username);
+        $user->password = $this->generatePassword($request->password);
         $user->save();
         $role = Role::findById($request->id_rol);
         $user->assignRole($role);
@@ -83,9 +87,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $id = Auth::user()->id;
+        $roles_name = Auth::user()->getRoleNames()->first();
+
+        $user = User::find($id);
+        $role = ModelsRole::findByName($roles_name);
+         
+        $permissions =  $role->permissions;
+   
+        return  view('admin.users.profile',compact('user','permissions'));
     }
 
     /**
@@ -131,6 +143,29 @@ class UserController extends Controller
         $user->assignRole($role);
 
         return redirect()->route('get-user');
+    }
+    public function updateProfile(UpdateProlifePut $request, $id)
+    {
+        $validate = $request->validated();
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        if($request->file('url_image')){
+            $user->url_image = $this->UploadImage($request);
+        }   
+        $user->save();
+        return redirect()->route('profile')->with('status', '¡Tú perfil ha sido actualizado  satisfactoriamente!');
+    }
+
+     public function updatePassword(Request $request, $id)
+     {
+        
+        $user = User::find($id);
+        $user->password = $request->password;
+        $user->save();
+        return redirect()->route('profile')->with('status', '¡Tú contraseña ha sido actualizado  satisfactoriamente!');;
     }
 
     /**
@@ -186,6 +221,10 @@ class UserController extends Controller
         $users = User::where('status','activo')->paginate(10);
 
         return response()->json(['users'=>$users],200);
+    }
+
+    public function getProfile(){
+
     }
 
 }

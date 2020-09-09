@@ -36,6 +36,30 @@
             @enderror
         </div>
     </div>
+
+    <div class="col-lg-6">
+        <div class="form-group">
+            {!! Form::label('email', 'Correo electrónico') !!}
+            {!! Form::text('email',null, ['class'=>'form-control']) !!}
+            @error('email')
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ $message }}.
+            </div>
+            @enderror
+        </div>
+    </div>
+   
+    <div class="col-lg-6">
+        <div class="form-group">
+            {!! Form::label('url_image', 'Fotografía (jpeg, png, jpg)') !!}
+            {!! Form::file('url_image', ['class'=>'form-control']) !!}
+            @error('url_image')
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ $message }}.
+            </div>
+            @enderror
+        </div>
+    </div>
     <div class="col-lg-6">
         <div class="form-group">
             {!! Form::label('status', 'Estado') !!}
@@ -59,42 +83,6 @@
             @enderror
         </div>
     </div>
-
-    <div class="col-lg-6">
-        <div class="form-group">
-            {!! Form::label('email', 'Correo electrónico') !!}
-            {!! Form::text('email',null, ['class'=>'form-control']) !!}
-            @error('email')
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ $message }}.
-            </div>
-            @enderror
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="form-group">
-            {!! Form::label('password', 'Contraseña') !!}
-            {!! Form::password('password', ['class'=>'form-control']) !!}
-            @error('password')
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ $message }}.
-            </div>
-            @enderror
-        </div>
-    </div>
-
-    <div class="col-lg-6">
-        <div class="form-group">
-            {!! Form::label('url_image', 'Fotografía (jpeg, png, jpg)') !!}
-            {!! Form::file('url_image', ['class'=>'form-control']) !!}
-            @error('url_image')
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ $message }}.
-            </div>
-            @enderror
-        </div>
-    </div>
-    
 </div>
 <div class="row">
     <div class="col-lg-12">

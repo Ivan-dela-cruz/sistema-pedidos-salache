@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreUserPost extends FormRequest
+class UpdateProlifePut extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +27,9 @@ class StoreUserPost extends FormRequest
         return [
 
             'name'=>'required|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/u|max:255',
-            'username'=>'required|unique:users',
-            'email'=>'required|email|unique:users|max:255',
-            'status'=>'required',
-            'id_rol'=>'required',
+            'username'=>['required',Rule::unique('users')->ignore($this->id)],
+            'email'=>['required','email',Rule::unique('users')->ignore($this->id),'max:255'],
             'url_image'=>'mimes:png,jpeg,jpg',
-            'password'=>'required|min:8',
         ];
     }
     public function messages()
@@ -66,10 +64,6 @@ class StoreUserPost extends FormRequest
             'id_rol.required'=>'Este campo es obligatorio.',
 
             'url_image.mimes'=>'Este formato de la imagen no es valído.',
-
-            'password.required' => 'Este campo es obligatorio.',
-
-            'password.min' => 'La contraseña debe tener 8 mínimo 8 caracteres.',
 
 
 

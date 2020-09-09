@@ -99,6 +99,9 @@ Route::middleware('auth')->group(function () {
 //RUTAS PARA LOS USUARIOS
     Route::get('users', 'admin\UserController@getUsers')->name('users');
     Route::get('create-user', 'admin\UserController@create')->name('create-user');
+     Route::get('profile', 'admin\UserController@show')->name('profile');
+     Route::put('update-profile/{id}', 'admin\UserController@updateProfile')->name('update-profile');
+     Route::put('update-password/{id}', 'admin\UserController@updatePassword')->name('update-password');
     Route::get('get-user', 'admin\UserController@index')->name('get-user');
     Route::get('edit-user/{id}', 'admin\UserController@edit')->name('edit-user');
     Route::post('store-user', 'admin\UserController@store')->name('store-user');

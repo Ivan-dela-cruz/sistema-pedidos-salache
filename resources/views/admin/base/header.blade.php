@@ -26,6 +26,7 @@
 
 
             <li class="dropdown dropdown-user">
+
                 <a class="nav-link dropdown-toggle link" data-toggle="dropdown">
                     @if (Auth::user()->url_image==="#")
                         <img src="{{asset('img/users/user.png')}}"/>
@@ -50,8 +51,10 @@
                             @csrf
                         </form>
                     </div>
+                     <a class="dropdown-item" href="{{ route('profile') }}"><i class="fa fa-cog"></i>Perfil</a>
                 </ul>
             </li>
+
         </ul>
         <!-- END TOP-RIGHT TOOLBAR-->
     </div>
