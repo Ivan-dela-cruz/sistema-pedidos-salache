@@ -10,6 +10,14 @@
 
             </div>
             <div class="ibox-body">
+                <div class="ibox-tools">
+                        <h5 class="d-none d-lg-block inbox-title">
+                            <a href="{{route('get-pdf-deliveryman')}}" class="btn btn-primary btn-sm pull-right">
+                                <i class="fa fa-print"></i>
+                                Imprimir</a>
+                                
+                            </h5>
+                </div>
 
                 @if (count($deliverymen)>0)
                     <div class="table-users table-responsive">

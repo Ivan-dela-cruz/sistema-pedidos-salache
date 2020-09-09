@@ -321,7 +321,7 @@ Latacunga - Ecuador. <br></small>
                     - {{\Carbon\Carbon::parse(time())->toFormattedDateString()}}</th>
             </tr>
           
-            <tr style="text-align: left; background-color: #0549e3; border: 2px solid #5de2c9;">
+            <tr style="text-align: left; background-color: #5eadfc; border: 2px solid #5de2c9;">
                 <th width="15px">N°</th>
                 <th style="text-align: center" width="65px">Cédula</th>
                 <th style="text-align: center" width="130px">Cliente</th>

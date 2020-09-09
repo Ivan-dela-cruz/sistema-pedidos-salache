@@ -16,12 +16,20 @@
                 </div>
             </div>
             <div class="ibox-body">
+                <div class="ibox-tools">
+                        <h5 class="d-none d-lg-block inbox-title">
+                            <a href="{{route('get-pdf-products')}}" class="btn btn-primary btn-sm pull-right">
+                                <i class="fa fa-print"></i>
+                                Imprimir</a>
+                                
+                            </h5>
+                </div>
                 @if (count($products)>0)
                     <div class="table-products table-responsive">
                         @include('admin.products.tableProducts')
 
                     </div>
-                    {{$products->render()}}
+                   
                 @else
                     <h4 class="text-center"> <i class="fa fa-search font-20 text-info"></i> No hay datos para mostrar </h4>
                 @endif

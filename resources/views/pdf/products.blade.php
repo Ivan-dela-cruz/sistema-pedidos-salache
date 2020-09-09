@@ -314,29 +314,26 @@ Latacunga - Ecuador. <br></small>
         <table>
             <thead>
             <tr style="color: black; text-align: center; background-color: #FFFFFF; border: 1px solid #FFFFFF;">
-                <th style="text-align: left; font-size: 11px;" colspan="3">Reporte de empresas - {{time()}}</th>
+                <th style="text-align: left; font-size: 11px;" colspan="2">Reporte de empresas - {{time()}}</th>
                 <th style="text-align: left;  font-weight: normal; font-size: 11px; font-size: 12px;" colspan="2">Emitido por 
                     - {{\Illuminate\Support\Facades\Auth::user()->name}}</th>
                 <th style="text-align: right; font-weight: normal; font-size: 11px;" colspan="2">Fecha
                     - {{\Carbon\Carbon::parse(time())->toFormattedDateString()}}</th>
             </tr>
           
-            <tr style="text-align: left; background-color: #5eadfc; border: 2px solid #5de2c9;">
-                <th width="15px">N°</th>
-                <th style="text-align: center" width="65px">Ruc</th>
-                <th style="text-align: center" width="130px">Empresa</th>
-                <th style="text-align: center" width="130px">Dirección</th>
-                <th style="text-align: center" width="50px">Télefono</th>
-                <th style="text-align: center" width="60px">Latitude</th>
-                <th style="text-align: center" width="60px">Longitude</th>
-                
-                <th style="text-align: center" width="75px">Registrado</th>
-
-            </tr>
+           
             </thead>
             <tbody>
             {{$contador = 1}}
             @foreach($companies as $company)
+                 <tr style="text-align: left; background-color: #5eadfc; border: 2px solid #5de2c9;">
+                    <th width="15px">N°</th>
+                    <th style="text-align: center" >Ruc</th>
+                    <th style="text-align: center">Empresa</th>
+                    <th style="text-align: center">Dirección</th>
+                    
+
+                </tr>
                 <tr @if($company->status=="inactivo") style="background-color: #fab4b1" @endif >
                     <td>{{$contador}}</td>
                      <td>
@@ -348,24 +345,58 @@ Latacunga - Ecuador. <br></small>
                     <td>
                         {{$company->company_address}}
                     </td>
-                    <td>
-                        {{$company->company_phone}}
-                    </td>
-                     <td>
-                        {{$company->latitude}}
-                    </td>
-                    <td >
-                        {{$company->longitude}}
-                    </td>
                     
+                </tr>
+              
+                <tr style="text-align: left; background-color: #a9c7e5; border: 2px solid #5de2c9;">
+                
+                    <th style="text-align: center" width="150px">Producto</th>
+                    <th style="text-align: center" width="150px">Descripción</th>
+                    <th style="text-align: center" width="80px">Precio</th>
+                    <th style="text-align: center" width="80px">Stock</th>
+                    <th style="text-align: center" width="120px">Categoría</th>
+                    <th style="text-align: center" width="75px">Registrado</th>
                     
-                   
-                    <td>
-                        {{\Carbon\Carbon::setLocale('es')}}
-                        {{\Carbon\Carbon::parse($company->created_at)->toFormattedDateString()}}
-                    </td>
 
                 </tr>
+                @if(count($company->products)>0)
+
+                 @foreach($company->products as $product)
+                    <tr @if($product->status=="inactivo") style="background-color: #fab4b1" @endif >
+                       
+                         <td>
+                            {{$product->name}}
+                        </td>
+                        <td>
+                            {{$product->description}} 
+                        </td>
+                        <td>
+                            {{$product->sale_price}}
+                        </td>
+                        <td>
+                            {{$product->stock}}
+                        </td>
+                        <td>
+                            {{$product->category->name}}
+                        </td>
+                        <td>
+                            {{\Carbon\Carbon::setLocale('es')}}
+                            {{\Carbon\Carbon::parse($company->created_at)->toFormattedDateString()}}
+                        </td>
+                        
+                    </tr>
+                   
+                 @endforeach
+                 @else
+                  <tr>
+                       
+                         <td>
+                           No tine productos registrados
+                        </td>
+                    </tr>
+
+                @endif
+
                 {{$contador++}}
             @endforeach
 
@@ -377,7 +408,7 @@ Latacunga - Ecuador. <br></small>
                 <th></th>
             </tr>
             <tr style="color: black; text-align: center; background-color: #FFFFFF; border: 1px solid #FFFFFF;">
-                <th style="text-align: right; font-size: 12px;" colspan="4"></th>
+                <th style="text-align: right; font-size: 12px;" colspan="3"></th>
                 <th style="text-align: center; font-size: 12px;" colspan="2">Total registros</th>
                 <th style="text-align: center; font-size: 12px;">{{$contador -1}}</th>
             </tr>

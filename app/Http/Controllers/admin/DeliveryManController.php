@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
+use Barryvdh\DomPDF\Facade as PDF;
+
 class DeliveryManController extends Controller
 {
     /**
@@ -495,4 +497,15 @@ class DeliveryManController extends Controller
         ]);
 
     }
+
+     public function getPdfDeliveryMan(){
+        $deliveryman = DeliveryMan::orderBy('created_at', 'DESC')->get();
+       
+        $pdf = PDF::loadView('pdf.deliveryman', compact('deliveryman'));
+        //$pdf->setPaper('A4', 'landscape');
+        $nombrePdf = 'reporte repartidores-' .time() . '.pdf';
+        return $pdf->download($nombrePdf);
+    }
+
+
 }

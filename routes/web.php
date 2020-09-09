@@ -183,8 +183,11 @@ Route::middleware('auth')->group(function () {
 
 
     ///URL REPORTES
-     Route::get('get-pdf-users', 'admin\UserController@getPdfUsers')->name('get-pdf-users');
-     Route::get('get-pdf-customers', 'admin\UserController@getPdfCustomers')->name('get-pdf-customers');
-     Route::get('get-pdf-merchants', 'admin\MerchantController@getPdfMerchant')->name('get-pdf-merchants');
- Route::get('get-pdf-companies', 'admin\MerchantController@getPdfCompanies')->name('get-pdf-companies');
+    Route::get('get-pdf-users', 'admin\UserController@getPdfUsers')->name('get-pdf-users');
+    Route::get('get-pdf-customers', 'admin\UserController@getPdfCustomers')->name('get-pdf-customers');
+    Route::get('get-pdf-merchants', 'admin\MerchantController@getPdfMerchant')->name('get-pdf-merchants');
+    Route::get('get-pdf-companies', 'admin\MerchantController@getPdfCompanies')->name('get-pdf-companies');
+    Route::get('get-pdf-deliveryman', 'admin\DeliveryManController@getPdfDeliveryMan')->name('get-pdf-deliveryman');
+    Route::get('get-pdf-products', 'admin\ProductController@getPdfCompaniesProducts')->name('get-pdf-products');
+   
 });

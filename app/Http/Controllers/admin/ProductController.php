@@ -12,6 +12,7 @@ use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ProductController extends Controller
 {
@@ -22,7 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(8);
+        $products = Product::orderBy('created_at','DESC')->get();
         return view('admin.products.index', compact('products'));
     }
 
@@ -226,5 +227,13 @@ class DetalleVenta(){
             return "#";
         }
 
+    }
+
+   public function getPdfCompaniesProducts(){
+        $companies = Company::all();
+        $pdf = PDF::loadView('pdf.products', compact('companies'));
+        //$pdf->setPaper('A4', 'landscape');
+        $nombrePdf = 'reporte productos de empresas-' .time() . '.pdf';
+        return $pdf->download($nombrePdf);
     }
 }

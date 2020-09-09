@@ -3,7 +3,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>REPORTE PDF</title>
+<title>PDF-ORDEN-</title>
 <style>
     body {
         /*position: relative;*/
@@ -314,7 +314,7 @@ Latacunga - Ecuador. <br></small>
         <table>
             <thead>
             <tr style="color: black; text-align: center; background-color: #FFFFFF; border: 1px solid #FFFFFF;">
-                <th style="text-align: left; font-size: 11px;" colspan="3">Reporte de empresas - {{time()}}</th>
+                <th style="text-align: left; font-size: 11px;" colspan="3">Reporte de repartidores - {{time()}}</th>
                 <th style="text-align: left;  font-weight: normal; font-size: 11px; font-size: 12px;" colspan="2">Emitido por 
                     - {{\Illuminate\Support\Facades\Auth::user()->name}}</th>
                 <th style="text-align: right; font-weight: normal; font-size: 11px;" colspan="2">Fecha
@@ -323,12 +323,11 @@ Latacunga - Ecuador. <br></small>
           
             <tr style="text-align: left; background-color: #5eadfc; border: 2px solid #5de2c9;">
                 <th width="15px">N°</th>
-                <th style="text-align: center" width="65px">Ruc</th>
-                <th style="text-align: center" width="130px">Empresa</th>
+                <th style="text-align: center" width="65px">Cédula</th>
+                <th style="text-align: center" width="130px">Repartidor</th>
                 <th style="text-align: center" width="130px">Dirección</th>
                 <th style="text-align: center" width="50px">Télefono</th>
-                <th style="text-align: center" width="60px">Latitude</th>
-                <th style="text-align: center" width="60px">Longitude</th>
+                <th style="text-align: center" width="120px">Email</th>
                 
                 <th style="text-align: center" width="75px">Registrado</th>
 
@@ -336,33 +335,29 @@ Latacunga - Ecuador. <br></small>
             </thead>
             <tbody>
             {{$contador = 1}}
-            @foreach($companies as $company)
-                <tr @if($company->status=="inactivo") style="background-color: #fab4b1" @endif >
+            @foreach($deliveryman as $delivery)
+                <tr @if($delivery->status=="inactivo") style="background-color: #fab4b1" @endif >
                     <td>{{$contador}}</td>
                      <td>
-                        {{$company->company_ruc}}
+                        {{$delivery->ci}}
                     </td>
                     <td>
-                        {{$company->company_name}} 
+                        {{$delivery->last_name}}  {{$delivery->name}}
                     </td>
                     <td>
-                        {{$company->company_address}}
+                        {{$delivery->address}}
                     </td>
                     <td>
-                        {{$company->company_phone}}
-                    </td>
-                     <td>
-                        {{$company->latitude}}
+                         {{$delivery->phone}}
+                       
                     </td>
                     <td >
-                        {{$company->longitude}}
+                         {{$delivery->email}}
                     </td>
-                    
-                    
                    
                     <td>
                         {{\Carbon\Carbon::setLocale('es')}}
-                        {{\Carbon\Carbon::parse($company->created_at)->toFormattedDateString()}}
+                        {{\Carbon\Carbon::parse($delivery->created_at)->toFormattedDateString()}}
                     </td>
 
                 </tr>
