@@ -3,7 +3,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>PDF-USUARIOS</title>
+<title>PDF-ORDENES</title>
 <style>
     body {
         /*position: relative;*/
@@ -314,7 +314,7 @@ Latacunga - Ecuador. <br></small>
         <table>
             <thead>
             <tr style="color: black; text-align: center; background-color: #FFFFFF; border: 1px solid #FFFFFF;">
-                <th style="text-align: left; font-size: 11px;" colspan="3">Reporte de usuarios - {{time()}}</th>
+                <th style="text-align: left; font-size: 11px;" colspan="4">Reporte de ordenes - {{$month_name = date("F", mktime(0, 0, 0, $request_month, 10))}} del {{$request_year}}</th>
                 <th style="text-align: left;  font-weight: normal; font-size: 11px; font-size: 12px;" colspan="2">Emitido por 
                     - {{\Illuminate\Support\Facades\Auth::user()->name}}</th>
                 <th style="text-align: right; font-weight: normal; font-size: 11px;" colspan="2">Fecha
@@ -322,42 +322,47 @@ Latacunga - Ecuador. <br></small>
             </tr>
             <tr style="text-align: left; background-color: #5eadfc; border: 2px solid #5de2c9;">
                 <th width="30px">N°</th>
-                <th style="text-align: center" width="130px">Usuario</th>
-                <th style="text-align: center" width="130px">Nombres</th>
-                <th style="text-align: center" width="130px">Correos</th>
-                <th style="text-align: center" width="80px">Télefonos</th>
+                <th style="text-align: center" width="115px">Cliente</th>
+                <th style="text-align: center" width="115px">Empresa</th>
+                <th style="text-align: center" width="60px">Total</th>
+                <th style="text-align: center" width="80px">Latitude</th>
+                <th style="text-align: center" width="80px">Longitude</th>
+                <th style="text-align: center" width="80px">Creado</th>
                 <th style="text-align: center" width="50px">Estado</th>
-                <th style="text-align: center" width="75px">Registrado</th>
 
             </tr>
             </thead>
             <tbody>
             {{$contador = 1}}
-            @foreach($users as $user)
-                <tr @if($user->status=="inactivo") style="background-color: #fab4b1" @endif >
-                    <td>{{$contador}}</td>
-                    <td>
-                        {{$user->username}}
+            {{$suma = 0}}
+            @foreach($orders as $order)
+                <tr >
+                    <td style="font-size: 8px;">{{$contador}}</td>
+                    <td style="font-size: 8px;">
+                        {{$order->name_customer}}
                     </td>
-                    <td>
-                        {{$user->name}}
+                    <td style="font-size: 8px;">
+                        {{$order->name_company}}
                     </td>
-                    <td >
-                        {{$user->email}}
+                    <td style="font-size: 8px;">
+                       $ {{$order->total}}
                     </td>
-                    <td>
-                        {{$user->phone}}
+                     <td style="font-size: 8px;">
+                       {{$order->latitude}}
                     </td>
-                    <td>
-                        {{$user->status}}
+                     <td style="font-size: 8px;">
+                       {{$order->longitude}}
                     </td>
-                   
-                    <td>
+                    <td style="font-size: 8px;">
                         {{\Carbon\Carbon::setLocale('es')}}
-                        {{\Carbon\Carbon::parse($user->created_at)->toFormattedDateString()}}
+                        {{\Carbon\Carbon::parse($order->created_at)->toFormattedDateString()}}
+                    </td>
+                    <td style="font-size: 8px;">
+                        {{$order->status}}
                     </td>
 
                 </tr>
+                 {{$suma = $suma +$order->total}}
                 {{$contador++}}
             @endforeach
 
@@ -369,7 +374,8 @@ Latacunga - Ecuador. <br></small>
                 <th></th>
             </tr>
             <tr style="color: black; text-align: center; background-color: #FFFFFF; border: 1px solid #FFFFFF;">
-                <th style="text-align: right; font-size: 12px;" colspan="4"></th>
+                <th style="text-align: right; font-size: 12px;" colspan="3">Total ingresos</th>
+                <th style="text-align: left; font-size: 12px;" colspan="2">$ {{$suma}}</th>
                 <th style="text-align: center; font-size: 12px;" colspan="2">Total registros</th>
                 <th style="text-align: center; font-size: 12px;">{{$contador -1}}</th>
             </tr>

@@ -162,6 +162,13 @@
 
                 </li>
             @endcan
+            @can('leer item')
+                <li>
+                <a href="{{route('get-report-orders')}}"><i class="sidebar-item-icon fa fa-envelope-o"></i>
+                        <span class="nav-label">Reportes</span><i class="fa fa-angle-left arrow"></i></a>
+
+                </li>
+            @endcan
         </ul>
     </div>
 </nav>

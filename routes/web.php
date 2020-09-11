@@ -189,5 +189,8 @@ Route::middleware('auth')->group(function () {
     Route::get('get-pdf-companies', 'admin\MerchantController@getPdfCompanies')->name('get-pdf-companies');
     Route::get('get-pdf-deliveryman', 'admin\DeliveryManController@getPdfDeliveryMan')->name('get-pdf-deliveryman');
     Route::get('get-pdf-products', 'admin\ProductController@getPdfCompaniesProducts')->name('get-pdf-products');
+    Route::get('get-report-orders', 'admin\ReportController@index')->name('get-report-orders');
+    Route::get('get-pdf-report-orders', 'admin\ReportController@getPdf')->name('get-pdf-report-orders');
+   
    
 });
