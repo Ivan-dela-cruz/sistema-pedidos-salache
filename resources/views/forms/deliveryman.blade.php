@@ -314,7 +314,7 @@
                                     </div>
                                     <label for="" class="text-muted">
 
-                                        <small> <span class="text-info font-weight-700">Importante! </span>  Subir la copia de sus documentos personales y ruc de la empresa si lo tiene , datos llenos  Y convenio firmado . importante subir  un solo  documento generado en pdf.</small>
+                                        <small> <span class="text-info font-weight-700">Importante! </span>  Subir la copia de sus documentos personales y ruc de la empresa si lo tiene , datos llenos  y convenio firmado . Importante subir  un solo  documento generado en pdf.</small>
 
                                     </label>
 

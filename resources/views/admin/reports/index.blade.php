@@ -4,7 +4,7 @@
         <div class="col-lg-6 col-md-6">
             <div class="ibox bg-success color-white widget-stat">
                 <div class="ibox-body">
-                    <h2 class="m-b-5 font-strong">$ {{$orders_year_val}}</h2>
+                    <h2 class="m-b-5 font-strong">$ {{$orders_month_val}}</h2>
                     <div class="m-b-5">Mensual</div>
                     <i class="ti-user widget-stat-icon"></i>
                     <div><i class="fa fa-level-up m-r-5"></i><small>{{$orders_month}} ordenes</small></div>

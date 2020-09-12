@@ -192,5 +192,10 @@ Route::middleware('auth')->group(function () {
     Route::get('get-report-orders', 'admin\ReportController@index')->name('get-report-orders');
     Route::get('get-pdf-report-orders', 'admin\ReportController@getPdf')->name('get-pdf-report-orders');
    
+
+
    
 });
+
+//RUTAS PARA LAS SOLICITUDES DE PRODUCTOS
+    Route::get('request-product','admin\RequestProductController@index')->name('request-product');

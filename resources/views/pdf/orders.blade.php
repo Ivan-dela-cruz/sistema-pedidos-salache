@@ -325,8 +325,8 @@ Latacunga - Ecuador. <br></small>
                 <th style="text-align: center" width="115px">Cliente</th>
                 <th style="text-align: center" width="115px">Empresa</th>
                 <th style="text-align: center" width="60px">Total</th>
-                <th style="text-align: center" width="80px">Latitude</th>
-                <th style="text-align: center" width="80px">Longitude</th>
+                <th style="text-align: center" width="80px">Latitud</th>
+                <th style="text-align: center" width="80px">Longitud</th>
                 <th style="text-align: center" width="80px">Creado</th>
                 <th style="text-align: center" width="50px">Estado</th>
 

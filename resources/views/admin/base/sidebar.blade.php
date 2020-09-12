@@ -158,14 +158,21 @@
             @can('leer item')
                 <li>
                 <a href="{{route('get-messages')}}"><i class="sidebar-item-icon fa fa-envelope-o"></i>
-                        <span class="nav-label">Mensajes</span><i class="fa fa-angle-left arrow"></i></a>
+                        <span class="nav-label">Mensajes</span></a>
 
                 </li>
             @endcan
             @can('leer item')
                 <li>
-                <a href="{{route('get-report-orders')}}"><i class="sidebar-item-icon fa fa-envelope-o"></i>
-                        <span class="nav-label">Reportes</span><i class="fa fa-angle-left arrow"></i></a>
+                <a href="{{route('get-report-orders')}}"><i class="sidebar-item-icon fa fa-file-o"></i>
+                        <span class="nav-label">Reportes</span></a>
+
+                </li>
+            @endcan
+            @can('leer item')
+                <li>
+                <a href="{{route('request-product')}}"><i class="sidebar-item-icon fa fa-image"></i>
+                        <span class="nav-label">Solicitud productos</span></a>
 
                 </li>
             @endcan

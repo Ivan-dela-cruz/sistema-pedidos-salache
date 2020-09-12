@@ -22,8 +22,8 @@ class ReportController extends Controller
         $month = $now->month;
         $day = $now->day;
         
-    	$orders_month = Order::whereMonth('created_at',$month-1)->count();
-    	$orders_month_val = Order::whereYear('created_at',$year)->sum("total");
+    	$orders_month = Order::whereMonth('created_at',$month)->count();
+    	$orders_month_val = Order::whereMonth('created_at',$month)->sum("total");
     	$orders_year = Order::whereYear('created_at',$year)->count();
     	$orders_year_val = Order::whereYear('created_at',$year)->sum("total");
 
