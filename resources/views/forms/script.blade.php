@@ -16,33 +16,79 @@
             var category = $('#category').val();
             var stock = $('#stock').val();
             var url_image = var_img_product;
-
-            var fila = '<tr class="product' + contador + '">' +
-            	'<td class="name">' + name + '</td>' +
-                '<td class="description">' + description + '</td>' +
-                '<td class="price">' + price + '</td>' +
-                '<td class="category">' + category + '</td>' +
-                '<td class="stock">' + stock + '</td>' +
-                '<td class="url_image">'+
-                '<img id="img_product" height="80" src="'+url_image+'">'+
-                '</td>' +
-                '<span class="table-remove">'+
-                '<td><button onclick="eliminar(' + contador + ')" type="button" class="btn btn-danger btn-rounded btn-sm my-0">'+
-                'Eliminar</button></span></td>';
+            if( validateForm(name,description,price,category,stock,url_image)){
+            	var fila = '<tr class="product' + contador + '">' +
+	            	'<td class="name">' + name + '</td>' +
+	                '<td class="description">' + description + '</td>' +
+	                '<td class="price">' + price + '</td>' +
+	                '<td class="category">' + category + '</td>' +
+	                '<td class="stock">' + stock + '</td>' +
+	                '<td class="url_image">'+
+	                '<img id="img_product" height="80" src="'+url_image+'">'+
+	                '</td>' +
+	                '<span class="table-remove">'+
+	                '<td><button onclick="eliminar(' + contador + ')" type="button" class="btn btn-danger btn-rounded btn-sm my-0">'+
+	                'Eliminar</button></span></td>';
+	           
+	            $('#table_request').append(fila);
+	            let item = {
+	            	id:contador,
+	                name: name,
+	                description: description,
+	                price: price,
+	                category: category,
+	                stock:stock,
+	                url_image:url_image
+	            };
+	            detail.push(item);
+	            contador++;
+	            console.log(detail);
+            }
            
-            $('#table_request').append(fila);
-            let item = {
-            	id:contador,
-                name: name,
-                description: description,
-                price: price,
-                category: category,
-                stock:stock,
-                url_image:url_image
-            };
-            detail.push(item);
-             contador++;
-            console.log(detail);
+    }
+
+    function validateForm(name,description,price,category,stock,url_image){
+    	if(name == ""){
+    		console.log("nombre");
+    		return false;
+    	}
+    	if(description == ""){
+    		console.log("descr");
+    		return false;
+    	}
+    	if(price == ""){
+    		console.log("preci");
+    		return false;
+    	}else{
+    		if(Number.isInteger(price)){
+    			console.log("preci number");
+				return false;
+    		}
+    	}
+    	if(category == ""){
+    		console.log("cate");
+    		return false;
+    	}
+    	if(stock == ""){
+    		console.log("sto");
+    		return false;
+    	}else{
+    		if(Number.isInteger(stock)){
+    			console.log("sto num");
+				return false;
+    		}
+    	}
+    	if(url_image == "#"){
+    		console.log("img");
+    		Swal.fire(
+                    'Imagen vacía!',
+                    'El producto de contener un imagen.',
+                    'warning'
+                );
+    		return false;
+    	}
+    	console.log("paso todo ");
+    	return true;
     }
 
     $(document).on("click", ".btn-save", function(e) {
@@ -151,7 +197,7 @@
 	    	}
 	    }
 	    console.log(detail);
-	    alert(detail.length);
+	   // alert(detail.length);
 	   
 	}
 

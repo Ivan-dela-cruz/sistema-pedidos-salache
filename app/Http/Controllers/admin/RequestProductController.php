@@ -63,7 +63,8 @@ class RequestProductController extends Controller
                 $detail->price = $det[$i]['price'];
                 $detail->stock = $det[$i]['stock'];
                 $detail->category = $det[$i]['category'];
-                //$detail->url_image =$this->UploadImageProduct($det[$i]['url_image']);
+
+                $detail->url_image =$this->UploadImageProduct($det[$i]['url_image']);
                 $detail->save();
                 $i++;
             }
@@ -118,11 +119,11 @@ class RequestProductController extends Controller
     {
 
         $url_file = "img/products/";
-        if ($request->url_image && $request->url_image != '#') {
+        if ($url_image != '#') {
 
-            $image = $request->get('url_image');
+            $image = $url_image;
             $name = time() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-            Image::make($request->get('url_image'))->save(public_path($url_file) . $name);
+            Image::make($image)->save(public_path($url_file) . $name);
             return $url_file . $name;
         } else {
             return "#";
