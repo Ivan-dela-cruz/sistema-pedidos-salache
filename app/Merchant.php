@@ -15,4 +15,8 @@ class Merchant extends Model
     {
      return $this->hasMany(Company::class,'id_merchant');
     }
+     public function requests()
+    {
+     return $this->hasMany(RequestProduct::class,'id_merchant');
+    }
 }

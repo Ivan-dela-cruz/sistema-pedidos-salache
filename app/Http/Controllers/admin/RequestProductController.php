@@ -4,7 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\RequestProduct;
+use App\DetailRequestProduct;
 class RequestProductController extends Controller
 {
     /**
@@ -35,7 +36,31 @@ class RequestProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request_product = new RequestProduct();
+        $request_product->topic = $request->topic;
+        $request_product->description = $request->topic;
+        $request_product->id_merchant = 1;
+        $request_product->save();
+
+        $detalles = $request->data;
+        $contador = $request->contador;
+
+    
+        $i = 0;
+        foreach ($detalles as $ep => $det) {
+            for ($j = 0; $j < $contador; $j++) {
+                $detail = new DetailRequestProduct();
+                $detail->id_request = $request_product->id;
+                $detail->name = $det[$i]['name'];
+                $detail->description = $det[$i]['description'];
+                $detail->price = $det[$i]['price'];
+                $detail->stock = 1;//$det[$i]['stock'];
+                $detail->category = $det[$i]['category'];
+                //$detail->url_image = $det[$i]['url_image'];
+                $detail->save();
+                $i++;
+            }
+        }
     }
 
     /**

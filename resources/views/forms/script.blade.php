@@ -27,9 +27,9 @@
                 '<span class="table-remove">'+
                 '<td><button onclick="eliminar(' + contador + ')" type="button" class="btn btn-danger btn-rounded btn-sm my-0">'+
                 'Eliminar</button></span></td>';
-            contador++;
+           
             $('#table_request').append(fila);
-            let fila = {
+            let item = {
             	id:contador,
                 name: name,
                 description: description,
@@ -37,7 +37,9 @@
                 category: category,
                 url_image:url_image
             };
-            detail.push(fila);
+            detail.push(item);
+             contador++;
+            console.log(detail);
     }
 
     $(document).on("click", ".btn-save", function(e) {
@@ -45,64 +47,40 @@
     });
 
 
-    $('.btnGenerarOrden').click(function () {
-            $(this).attr('disabled', 'disabled');
+    $('.btn-send').click(function () {
+           // $(this).attr('disabled', 'disabled');
             //$('.btnCancelarOrden').attr('disabled', 'disabled');
-            let materiales = [];
-            var fechaval = $('#fecha_orden').val();
-            var descripor = $('#orden_decrip').val();
-            if (contador == 0 && fechaval == '' && descripor == '') {
+            //let materiales = [];
+            //var fechaval = $('#fecha_orden').val();
+            //var descripor = $('#orden_decrip').val();
+            if (detail.length == 0 ) {
 
 
             } else {
-                if (descripor == '') {
-                    $('#orden_decrip').addClass("border-danger");
-                } else {
-
-                    $('#orden_decrip').removeClass("border-danger");
-                    document.querySelectorAll('#table_request tbody tr').forEach(function (e) {
-                        let fila = {
-                            name: e.querySelector('.serie').innerText,
-                            description: e.querySelector('.marca').innerText,
-                            price: e.querySelector('.modelo').innerText,
-                            price: e.querySelector('.problema').innerText,
-                            accesorios: e.querySelector('.accesorio').innerText,
-                            fecha_salida: e.querySelector('.fecha_salida').innerText,
-                            descripcion: e.querySelector('.descripccion').innerText,
-                            tipo: e.querySelector('.tipo').innerText,
-                        };
-                        materiales.push(fila);
-                    });
-                    console.log(materiales);
-                    $.ajax({
-                        url: "generarOrden",
+                $.ajax({
+                        url: "send-request-product",
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         data: {
                             data: {
-                                materiales
+                                detail
                             },
-                            id_p: $('#ordencliente').val(),
+                            //id_p: $('#ordencliente').val(),
                             _token: "{{csrf_token()}}",
-                            fecha_salida_re: $('#fecha_orden').val(),
-                            observacion_problema_or: $('#orden_decrip').val(),
+                            //fecha_salida_re: $('#fecha_orden').val(),
+                            //observacion_problema_or: $('#orden_decrip').val(),
                             //CONTIENEN LA COLECCION DE DATOS DEL DETALLE D ELA ORDEN DE TRABAJO
 
                             _method: "POST",
-                            contador: contador,
+                            contador: detail.length,
                         },
                         success: function (data) {
-                            $('.btnGenerarOrden').attr('disabled', 'disabled');
-                            $('.btnCancelarOrden').attr('disabled', 'disabled');
-                            $('#orden_decrip').removeClass("border-danger");
-                            location.href = 'listar-ordenes';
+                            
                         }
                     })
                     ;
-
-                }
 
 
             }
@@ -132,10 +110,15 @@
 
 
     function eliminar(index) {
+    
 	    $('.product' + index).remove();
 	    for (let i = 0; i < detail.length ; i++){
-	    	
+	    	if(detail[i].id==index){
+	    		detail.splice(i, 1);
+	    	}
 	    }
+	    console.log(detail);
+	    alert(detail.length);
 	   
 	}
 
@@ -150,7 +133,7 @@
                 FR.addEventListener("load", function (e) {
                     var_img_product = e.target.result;
 					$('#image_product').removeAttr('hidden');
-                    console.log('varibles  ' + var_img_product);
+                   // console.log('varibles  ' + var_img_product);
                     document.getElementById("image_product").src = e.target.result;
 
                     //document.getElementById("image_product").innerHTML = e.target.result;

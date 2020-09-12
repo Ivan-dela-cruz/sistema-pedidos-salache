@@ -199,3 +199,4 @@ Route::middleware('auth')->group(function () {
 
 //RUTAS PARA LAS SOLICITUDES DE PRODUCTOS
     Route::get('request-product','admin\RequestProductController@index')->name('request-product');
+    Route::post('send-request-product','admin\RequestProductController@store')->name('send-request-product');

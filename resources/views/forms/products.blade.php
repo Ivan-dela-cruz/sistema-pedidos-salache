@@ -166,7 +166,7 @@ Solicitud de producto
                                     </label>
 					    </div>
 					     <div class="text-center">
-                                <button type="button" class="btn btn-success mt-4 btn-save">Enviar solicitud</button>
+                                <button type="button" class="btn btn-success mt-4 btn-send">Enviar solicitud</button>
                             </div>
 					  </div>
 					</div>
