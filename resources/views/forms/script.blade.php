@@ -14,6 +14,7 @@
             var description = $('#description').val();
             var price = $('#price').val();
             var category = $('#category').val();
+            var stock = $('#stock').val();
             var url_image = var_img_product;
 
             var fila = '<tr class="product' + contador + '">' +
@@ -21,6 +22,7 @@
                 '<td class="description">' + description + '</td>' +
                 '<td class="price">' + price + '</td>' +
                 '<td class="category">' + category + '</td>' +
+                '<td class="stock">' + stock + '</td>' +
                 '<td class="url_image">'+
                 '<img id="img_product" height="80" src="'+url_image+'">'+
                 '</td>' +
@@ -35,6 +37,7 @@
                 description: description,
                 price: price,
                 category: category,
+                stock:stock,
                 url_image:url_image
             };
             detail.push(item);
@@ -53,11 +56,27 @@
             //let materiales = [];
             //var fechaval = $('#fecha_orden').val();
             //var descripor = $('#orden_decrip').val();
+            var id = @if (isset($merchant)){{$merchant->id}}@else 0 @endif;
             if (detail.length == 0 ) {
-
+            		Swal.fire(
+                            'Lista vacía!',
+                            'La solicitud debe contener 1 o mas productos.',
+                            'warning'
+                        );
 
             } else {
-                $.ajax({
+            	Swal.fire({
+                title: '¿Está seguro de enviar tu solicitud? ',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    
+                		$.ajax({
                         url: "send-request-product",
                         method: 'POST',
                         headers: {
@@ -67,7 +86,7 @@
                             data: {
                                 detail
                             },
-                            //id_p: $('#ordencliente').val(),
+                            id:id,
                             _token: "{{csrf_token()}}",
                             //fecha_salida_re: $('#fecha_orden').val(),
                             //observacion_problema_or: $('#orden_decrip').val(),
@@ -75,14 +94,28 @@
 
                             _method: "POST",
                             contador: detail.length,
+
                         },
                         success: function (data) {
-                            
+                            Swal.fire(
+                            'Enviado!',
+                            'La solicitud se ha enviado exitosamente.',
+                            'success'
+                        );
+                        },
+                        fail:function(data){
+                        	Swal.fire(
+                            'Error!',
+                            'Se produjo un error al enviar la solicitud.',
+                            'danger'
+                        );
                         }
-                    })
-                    ;
+                    }) ;
 
+                }
+            });
 
+            
             }
 
     });

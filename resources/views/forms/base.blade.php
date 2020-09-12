@@ -18,6 +18,7 @@
     <link type="text/css" href="{{asset('form/assets/css/argon.css?v=1.0.1')}}" rel="stylesheet">
     <!-- Docs CSS -->
     <link type="text/css" href="{{asset('form/assets/css/docs.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('sweetalert2/dist/sweetalert2.min.css')}}"/>
 </head>
 
 <body>
@@ -122,6 +123,7 @@
 <script src="{{asset('form/assets/vendor/headroom/headroom.min.js')}}"></script>
 <!-- Argon JS -->
 <script src="{{asset('form/assets/js/argon.js?v=1.0.1')}}"></script>
+<script src="{{asset('sweetalert2/dist/sweetalert2.all.min.js')}}" type="text/javascript"></script>
 @yield('scripts')
 
 </body>

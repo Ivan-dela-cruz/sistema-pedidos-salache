@@ -5,18 +5,21 @@ Solicitud de producto
 @section('content')
 <div class="row">
 	<div class="col-lg-12">
-		<form class="form-inline md-form mr-auto mb-4">
-			<input class="form-control mr-sm-2" type="text" placeholder="Ingrese Cédula" aria-label="Search">
-			<button class="btn btn-elegant btn-rounded btn-md my-0" type="submit">Buscar</button>
-		</form>
+		{!! Form::open(['route' => 'request-product', 'method'=>'GET','autocomplete'=>'off','role'=>'search','class'=>'form-inline md-form mr-auto mb-4']) !!}
+			<input name="ci" class="form-control mr-sm-2" type="text" placeholder="Ingrese Cédula" aria-label="Search" value="@if (isset($merchant)){{$merchant->ci}}@endif"
+			data-id="@if (isset($merchant)){{$merchant->id}}@endif">
+			<button class="btn btn-primary btn-rounded btn-md my-0" type="submit">Buscar</button>
+		{!! Form::close() !!}
+		
 		
 	</div>
+	@if (isset($merchant))
 
 	<div class="col-lg-12">
                     <div class="card bg-secondary shadow border-0">
-                        <div class="card-header bg-white pb-2">
-                            <div class="text-muted text-center mb-2">
-                                <h5 class="card-header text-center font-weight-bold py-4">Formulario Solicitud  Productos</h5>
+                        <div class="card-header bg-white">
+                            <div class="text-muted text-center">
+                                <h5 class="font-weight-bold">Formulario Solicitud  Productos</h5>
                             </div>
                             @if (session('status'))
                                 @if (session('status')!="error")
@@ -104,6 +107,21 @@ Solicitud de producto
                                     </div>
                                     @enderror
                                 </div> 
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-group input-group-alternative mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="ni ni-ungroup"></i></span>
+                                            </div>
+                                            {!! Form::number('stock', null, ['class'=>'form-control','placeholder'=>'Cantidad','id'=>'stock']) !!}
+                                        </div>
+                                    </div>
+                                    @error('category')
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{ $message }}.
+                                    </div>
+                                    @enderror
+                                </div> 
 
                                 <div class="col-md-12">
                                     <div class="custom-file pb-3">
@@ -150,6 +168,7 @@ Solicitud de producto
 					            <th class="text-center">Descripción</th>
 					            <th class="text-center">Precio</th>
 					            <th class="text-center">Categoría</th>
+					            <th class="text-center">Cantidad</th>
 					            <th class="text-center">Imagen</th>
 					            <th class="text-center">Acción</th>
 					            
@@ -172,6 +191,19 @@ Solicitud de producto
 					</div>
                 	
                 </div>
+      @else
+	    <div class="col-lg-9 mt-4">
+	    	<div class="card">
+			  <h5 class="text-center font-weight-bold mt-2">¡Unete a nosotros!</h5>
+			  <div class="card-body">
+			  	<p>Quieres registrar tu empresa presiona <a href="{{route('empresa')}}">aquí</a></p>
+			  	<p>Quieres ser un repartidor presiona <a href="{{route('repartidor')}}">aquí</a></p>
+
+			  </div>
+			</div>
+	    	
+	    </div>
+      @endif
 </div>
 
 
