@@ -292,7 +292,7 @@
 <body>
 <section style="margin-bottom: 0px; height: auto;">
     <div class="encabezado">
-        <img class="logo" src="img/utc.png" alt="logo utc">
+        <img class="logo" src="{{asset('img/utc.png')}}" alt="logo utc">
         <div class="box-company">
             <h1 class="name-company">{{$order->name_company}}</h1>
             <small class="dates-company">{{$order->company_address}}<br></small>

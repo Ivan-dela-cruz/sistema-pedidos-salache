@@ -9,7 +9,7 @@ class RequestProduct extends Model
 	 protected $table = 'request_products';
      public function details()
     {
-     return $this->hasMany(DetailRequestProduct::class,'id_request');
+     	return $this->hasMany(DetailRequestProduct::class,'id_request');
     }
 
     public function merchant()

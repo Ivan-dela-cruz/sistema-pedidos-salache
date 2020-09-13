@@ -23,6 +23,7 @@ Route::get('/', 'WebController@index')->name('index');
 Route::get('categorias', 'WebController@categories')->name('categorias');
 Route::get('contactos', 'WebController@contact')->name('contactos');
 Route::post('enviar-mensaje', 'WebController@senMessage')->name('enviar-mensaje');
+Route::get('descargar-aplicacion','HomeController@downloadapk')->name('descargar-aplicacion');
 
 
 //RUTAS PARA LAS SOLICITUDES DEL EMPRESARIO Y REPARTIDOR
@@ -191,6 +192,7 @@ Route::middleware('auth')->group(function () {
     Route::get('get-pdf-products', 'admin\ProductController@getPdfCompaniesProducts')->name('get-pdf-products');
     Route::get('get-report-orders', 'admin\ReportController@index')->name('get-report-orders');
     Route::get('get-pdf-report-orders', 'admin\ReportController@getPdf')->name('get-pdf-report-orders');
+    Route::get('get-request-products', 'admin\RequestProductController@create')->name('get-request-products');
    
 
 
@@ -198,5 +200,6 @@ Route::middleware('auth')->group(function () {
 });
 
 //RUTAS PARA LAS SOLICITUDES DE PRODUCTOS
-    Route::get('request-product','admin\RequestProductController@index')->name('request-product');
+    Route::get('solicitud-productos','admin\RequestProductController@index')->name('solicitud-productos');
     Route::post('send-request-product','admin\RequestProductController@store')->name('send-request-product');
+    Route::get('download-image-request-product/{id}','admin\RequestProductController@downloadImage')->name('download-image-request-product');

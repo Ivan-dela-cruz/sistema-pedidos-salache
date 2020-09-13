@@ -184,7 +184,7 @@ class ConvenioController extends Controller
             $archivo = $request->file('url_document');
             $nombre_archivo = "convenio-" . time() . '.' . $archivo->getClientOriginalExtension();
             $r2 = Storage::disk('documents')->put(utf8_decode($nombre_archivo), File::get($archivo));
-            $ruta_archivo = "storage/documents/" . $nombre_archivo;
+            $ruta_archivo = "documents/documents/" . $nombre_archivo;
         } else {
             $ruta_archivo = "#";
         }
@@ -200,7 +200,7 @@ class ConvenioController extends Controller
             $archivo = $request->file('url_word');
             $nombre_archivo = "convenio-" . time() . '.' . $archivo->getClientOriginalExtension();
             $r2 = Storage::disk('word')->put(utf8_decode($nombre_archivo), File::get($archivo));
-            $ruta_archivo = "storage/word/" . $nombre_archivo;
+            $ruta_archivo = "documents/word/" . $nombre_archivo;
         } else {
             $ruta_archivo = "#";
         }
@@ -233,7 +233,7 @@ class ConvenioController extends Controller
         return redirect()->back();
        
     }
-     public function downloadword($id)
+    public function downloadword($id)
     {
         $convenio = Convenio::find($id);
          if($convenio->url_word!="#"){
@@ -242,7 +242,6 @@ class ConvenioController extends Controller
             return response()->download($rutaWord, $name_word . ".doc");
          }
         
-
         return redirect()->back();
     }
 }

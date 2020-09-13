@@ -4,6 +4,10 @@
 	$(document).ready(function(){
 		 $('.money2').mask("##0.00", {reverse: true});
 		 $('.stock').mask("##0", {reverse: true});
+		 @if (isset($merchant))
+    		document.getElementById("image_product").src = "{{ asset('img/image.png')}}";
+    	@endif
+		 
 	});
 	let contador = 1;
 	let var_img_product = "#";
@@ -50,8 +54,19 @@
                             'El producto ha sido agregado a la lista.',
                             'success'
                         );
+	            clean();
             }
            
+    }
+    function clean(){
+    	$('#name').val("");
+        $('#description').val("");
+        $('#price').val("");
+        $('#category').val("");
+        $('#stock').val("");
+        var_img_product = "#";
+        $('#image_product').attr('hidden',true);
+
     }
 
     function updateList(name){
@@ -128,7 +143,17 @@
             //let materiales = [];
             //var fechaval = $('#fecha_orden').val();
             //var descripor = $('#orden_decrip').val();
+            var topic = "";
+            var topic = $('#topic').val();
             var id = @if (isset($merchant)){{$merchant->id}}@else 0 @endif;
+            if(topic==""){
+                Swal.fire(
+                            'El motivo esta vacío!',
+                            'Ingrese un motivo porfavor para continuar.',
+                            'warning'
+                        );
+                return false;
+            }
             if (detail.length == 0 ) {
             		Swal.fire(
                             'Lista vacía!',
@@ -159,6 +184,7 @@
                                 detail
                             },
                             id:id,
+                            topic:topic,
                             _token: "{{csrf_token()}}",
                             //fecha_salida_re: $('#fecha_orden').val(),
                             //observacion_problema_or: $('#orden_decrip').val(),
@@ -169,18 +195,34 @@
 
                         },
                         success: function (data) {
-                            Swal.fire(
-                            'Enviado!',
-                            'La solicitud se ha enviado exitosamente.',
-                            'success'
-                        );
+                        	if(data.success){
+                        		Swal.fire(
+		                            'Enviado!',
+		                            'La solicitud se ha enviado exitosamente.',
+		                            'success'
+                        		);
+                        		 clean();
+                        		 $("#table_request > tbody").empty();
+                        		 detail = [];
+                        		 contador = 1;
+
+                        	}else{
+
+                        		Swal.fire(
+		                            'Error!',
+		                            'Se produjo un error al enviar la solicitud.',
+		                            'error'
+                        		);
+                        	}
+                           
+                        	
                         },
-                        fail:function(data){
+                        error:function(data){
                         	Swal.fire(
-                            'Error!',
-                            'Se produjo un error al enviar la solicitud.',
-                            'danger'
-                        );
+	                            'Error!',
+	                            'Se produjo un error al enviar la solicitud.',
+	                            'error'
+                        	);
                         }
                     }) ;
 
@@ -191,6 +233,31 @@
             }
 
     });
+    $('.btn-cancel').click(function () {
+           
+            	Swal.fire({
+                title: '¿Está seguro de cancelar tu solicitud? ',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    
+                		window.location.href = "{{route('solicitud-productos')}}";
+                   
+
+                }
+            });
+
+            
+         
+
+    });
+
+   
 
     function validarName(name) {
             let products = [];
@@ -249,7 +316,10 @@
             }
 
     }
-    document.getElementById("customFile").addEventListener("change", readFileProduct);
+    @if (isset($merchant))
+    	document.getElementById("customFile").addEventListener("change", readFileProduct);
+    @endif
+    
 
 
 

@@ -1,5 +1,6 @@
 @extends('admin.base.index')
 @section('content')
+
     <div class="row">
         <div class="col-lg-6 col-md-6">
             <div class="ibox bg-success color-white widget-stat">

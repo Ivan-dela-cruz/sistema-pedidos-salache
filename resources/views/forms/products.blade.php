@@ -4,15 +4,25 @@ Solicitud de producto
 @endsection
 @section('content')
 <div class="row">
-	<div class="col-lg-12">
-		{!! Form::open(['route' => 'request-product', 'method'=>'GET','autocomplete'=>'off','role'=>'search','class'=>'form-inline md-form mr-auto mb-4']) !!}
+	<div class="col-lg-8">
+		{!! Form::open(['route' => 'solicitud-productos', 'method'=>'GET','autocomplete'=>'off','role'=>'search','class'=>'form-inline md-form mr-auto mb-4']) !!}
 			<input name="ci" class="form-control mr-sm-2" type="text" placeholder="Ingrese Cédula" aria-label="Search" value="@if (isset($merchant)){{$merchant->ci}}@endif"
 			data-id="@if (isset($merchant)){{$merchant->id}}@endif">
 			<button class="btn btn-primary btn-rounded btn-md my-0" type="submit">Buscar</button>
+            
 		{!! Form::close() !!}
 		
 		
 	</div>
+    @if(isset($merchant))
+        <div class="col-lg-4">
+            <a class="text-white float-right">{{$merchant->name}} {{$merchant->last_name}}</a>
+        </div>
+        @else
+        <div class="col-lg-4">
+            <a class="text-white float-right">No se econtrarón registros</a>
+        </div>
+    @endif
 	@if (isset($merchant))
 
 	<div class="col-lg-12">
@@ -21,6 +31,8 @@ Solicitud de producto
                             <div class="text-muted text-center">
                                 <h5 class="font-weight-bold">Formulario Solicitud  Productos</h5>
                             </div>
+                            
+                            
                             @if (session('status'))
                                 @if (session('status')!="error")
                                     <div class="alert alert-success mr-3 ml-3">
@@ -39,7 +51,23 @@ Solicitud de producto
                         </div>
                         <div class="card-body ">
                             {!! Form::open(['url' => 'store-deliveryman','files' => true,'id'=>'form_en']) !!}
+                               
                             <div class="row">
+                                <div class="col-md-12">
+                                    <h6>Motivo de la solicitud</h6>
+                                </div>
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="input-group input-group-alternative mb-3">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                                            </div>
+                                            {!! Form::text('topic', null, ['class'=>'form-control','placeholder'=>'Motivo','id'=>'topic']) !!}
+
+                                        </div>
+                                    </div>
+                                    
+                                </div>
                                 <div class="col-md-12">
                                     <h6>Datos del producto</h6>
                                 </div>
@@ -185,6 +213,7 @@ Solicitud de producto
                                     </label>
 					    </div>
 					     <div class="text-center">
+					     	 <button type="button" class="btn btn-danger mt-4 btn-cancel">Cancelar</button>
                                 <button type="button" class="btn btn-success mt-4 btn-send">Enviar solicitud</button>
                             </div>
 					  </div>
@@ -194,7 +223,7 @@ Solicitud de producto
       @else
 	    <div class="col-lg-9 mt-4">
 	    	<div class="card">
-			  <h5 class="text-center font-weight-bold mt-2">¡Unete a nosotros!</h5>
+			  <h5 class="text-center font-weight-bold mt-2">¡Únete a nosotros!</h5>
 			  <div class="card-body">
 			  	<p>Quieres registrar tu empresa presiona <a href="{{route('empresa')}}">aquí</a></p>
 			  	<p>Quieres ser un repartidor presiona <a href="{{route('repartidor')}}">aquí</a></p>

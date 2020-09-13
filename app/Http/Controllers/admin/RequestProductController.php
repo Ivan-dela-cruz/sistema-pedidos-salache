@@ -8,6 +8,8 @@ use App\RequestProduct;
 use App\Merchant;
 use App\DetailRequestProduct;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class RequestProductController extends Controller
 {
@@ -18,6 +20,7 @@ class RequestProductController extends Controller
      */
     public function index(Request $request)
     {
+
        
         $merchant = Merchant::where('ci',$request->ci)->first();
       
@@ -31,7 +34,8 @@ class RequestProductController extends Controller
      */
     public function create()
     {
-        //
+        $request_products = RequestProduct::orderBy('created_at','DESC')->where('status','activo')->get();
+        return view('admin.requestproducts.index',compact('request_products'));
     }
 
     /**
@@ -42,34 +46,48 @@ class RequestProductController extends Controller
      */
     public function store(Request $request)
     {
+         try {
+            DB::beginTransaction();
 
-        $request_product = new RequestProduct();
-        $request_product->topic = $request->topic;
-        $request_product->description = $request->topic;
-        $request_product->id_merchant = $request->id;
-        $request_product->save();
+            $request_product = new RequestProduct();
+            $request_product->topic = $request->topic;
+            $request_product->description = $request->topic;
+            $request_product->id_merchant = $request->id;
+            $request_product->save();
 
-        $detalles = $request->data;
-        $contador = $request->contador;
+            $detalles = $request->data;
+            $contador = $request->contador;
 
-    
-        $i = 0;
-        foreach ($detalles as $ep => $det) {
-            for ($j = 0; $j < $contador; $j++) {
-                $price =  (double) $det[$i]['price']; 
-             
-                $detail = new DetailRequestProduct();
-                $detail->id_request = $request_product->id;
-                $detail->name = $det[$i]['name'];
-                $detail->description = $det[$i]['description'];
-                $detail->price = $price; 
-                $detail->stock = $det[$i]['stock'];
-                $detail->category = $det[$i]['category'];
+        
+            $i = 0;
+            foreach ($detalles as $ep => $det) {
+                for ($j = 0; $j < $contador; $j++) {
+                    $price =  (double) $det[$i]['price']; 
+                 
+                    $detail = new DetailRequestProduct();
+                    $detail->id_request = $request_product->id;
+                    $detail->name = $det[$i]['name'];
+                    $detail->description = $det[$i]['description'];
+                    $detail->price = $price; 
+                    $detail->stock = $det[$i]['stock'];
+                    $detail->category = $det[$i]['category'];
 
-                $detail->url_image =$this->UploadImageProduct($det[$i]['url_image']);
-                $detail->save();
-                $i++;
+                    $detail->url_image =$this->UploadImageProduct($det[$i]['url_image']);
+                    $detail->save();
+                    $i++;
+                }
             }
+            DB::commit();
+                return response()->json([
+                    'success'=>true,
+                ],200);
+             return redirect()->route('solicitud-productos')->with('status', '¡Tú solicitud se ha enviado satisfactoriamente!');
+        } catch (\Exception $e) {
+                DB::rollBack();
+                 return response()->json([
+                    'success'=>false,
+                ],422);
+                return redirect()->route('empresa')->with('status', 'error');
         }
     }
 
@@ -81,7 +99,7 @@ class RequestProductController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -90,9 +108,16 @@ class RequestProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+   
+
+    public function downloadImage( $id){
+        $detail = DetailRequestProduct::find($id);
+        $name ="";
+        if($detail->url_image!="#"){
+            $url_file = $detail->url_image;
+            $name = Str::after($url_file, 'img/products/');
+            return response()->download($url_file, $name);
+         }  
     }
 
     /**

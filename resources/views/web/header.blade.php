@@ -19,10 +19,10 @@
 
                 <li><a href="{{route('categorias')}}">Categorias</a></li>
 
-                <li><a href="https://www.tiendavirtualutc.xyz/empresa">Registra tu Empresa</a></li>
-                <li><a href="https://www.tiendavirtualutc.xyz/repartidor">Ser Repartidor</a></li>
+                <li><a href="{{route('empresa')}}">Registra tu Empresa</a></li>
+                <li><a href="{{route('repartidor')}}">Ser Repartidor</a></li>
             <li><a href="{{route('contactos')}}">Contactos</a></li>
-            <li><a href="{{route('request-product')}}">Solicitud productos</a></li>
+            <li><a href="{{route('solicitud-productos')}}">Solicitud productos</a></li>
 
               </ul>
         </nav><!-- .nav-menu -->

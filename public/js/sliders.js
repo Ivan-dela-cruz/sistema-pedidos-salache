@@ -1,5 +1,5 @@
-//const url_host ="http://tiendavirtualutc.herokuapp.com/"
-const url_host ="http://localhost/salache/public/"
+const url_host ="https://tiendavirtualutc.com/"
+//const url_host ="http://localhost/salache/public/"
 // Simple list
 Sortable.create(simpleList, {
     animation: 150,

@@ -171,11 +171,12 @@
             @endcan
             @can('leer item')
                 <li>
-                <a href="{{route('request-product')}}"><i class="sidebar-item-icon fa fa-image"></i>
+                <a href="{{route('get-request-products')}}"><i class="sidebar-item-icon fa fa-image"></i>
                         <span class="nav-label">Solicitud productos</span></a>
 
                 </li>
             @endcan
+            
         </ul>
     </div>
 </nav>

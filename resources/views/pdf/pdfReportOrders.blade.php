@@ -291,7 +291,7 @@
 <body>
 <section style="margin-bottom: 0px; height: auto;">
     <div class="encabezado">
-        <img class="logo" src="{{asset('img/logo_pantallas.png')}}" alt="CompartiendoCodigo">
+        <img class="logo" src="{{asset('img/utc.png')}}" alt="CompartiendoCodigo">
         <div class="box-company">
             <h1 class="name-company">Souri Odontología Digital</h1>
             <small class="dates-company">Avenida 5 de Junio y Río Langoa Sector la Estación, Latacunga,

@@ -53,11 +53,11 @@ return [
         ],
         'word' => [
             'driver' => 'local',
-            'root'   => public_path('storage/word'),
+            'root'   => public_path('documents/word'),
         ],
         'documents' => [
             'driver' => 'local',
-            'root'   => public_path('storage/documents'),
+            'root'   => public_path('documents/documents'),
         ],
         'photos' => [
             'driver' => 'local',
