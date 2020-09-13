@@ -134,6 +134,9 @@ class UserController extends Controller
         if($request->file('url_image')){
             $user->url_image = $this->UploadImage($request);
         }
+        if($request->password!=""){
+             $user->password =$this->generatePassword($request->password);
+        }
        // $user->password = $this->generatePassword($request->ci);
         $user->save();
 
@@ -153,6 +156,7 @@ class UserController extends Controller
         $user->username = $request->username;
         $user->email = $request->email;
         $user->phone = $request->phone;
+        
         if($request->file('url_image')){
             $user->url_image = $this->UploadImage($request);
         }   

@@ -14,7 +14,7 @@
             </div>
             <div class="ibox-body">
                 {!! Form::model($user, ['url' => ['update-user', $user->id], 'method' => 'PUT','files' => true]) !!}
-                @include('admin.users.partials.edit')
+                @include('admin.users.partials.form')
                 {!! Form::close() !!}
             </div>
         </div>

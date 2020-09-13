@@ -10,6 +10,7 @@ use App\DetailRequestProduct;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class RequestProductController extends Controller
 {
@@ -99,6 +100,8 @@ class RequestProductController extends Controller
      */
     public function show($id)
     {
+        $request_product = RequestProduct::find($id);
+        return view('admin.requestproducts.show',compact('request_product'));
         
     }
 
@@ -138,9 +141,25 @@ class RequestProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroyRequest($id)
     {
-        //
+        $request = RequestProduct::find($id);
+        foreach ($request->details as $detail) {
+            $this->destroyFile($detail->url_image);
+            $detail->delete();
+        }
+        $request->delete();
+        return redirect()->route('get-request-products')->with('success', 'Eliminado.');
+        
+    }
+    public function deleteItem($id)
+    {
+        $detail = DetailRequestProduct::find($id);
+        $this->destroyFile($detail->url_image);
+        $detail->delete();
+        return redirect()->back()->with('success', 'Eliminado.');
+
+        
     }
     public function UploadImageProduct($url_image)
     {
@@ -156,5 +175,14 @@ class RequestProductController extends Controller
             return "#";
         }
 
+    }
+
+     public function destroyFile($path_file)
+    {
+        if (\File::exists(public_path($path_file))) {
+
+            \File::delete(public_path($path_file));
+
+        }
     }
 }

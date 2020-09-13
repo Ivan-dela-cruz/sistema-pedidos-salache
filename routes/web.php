@@ -203,3 +203,6 @@ Route::middleware('auth')->group(function () {
     Route::get('solicitud-productos','admin\RequestProductController@index')->name('solicitud-productos');
     Route::post('send-request-product','admin\RequestProductController@store')->name('send-request-product');
     Route::get('download-image-request-product/{id}','admin\RequestProductController@downloadImage')->name('download-image-request-product');
+    Route::get('show-request-product/{id}','admin\RequestProductController@show')->name('show-request-product');
+    Route::get('delete-request-product/{id}','admin\RequestProductController@destroyRequest')->name('delete-request-product');
+    Route::get('delete-request-item/{id}','admin\RequestProductController@deleteItem')->name('delete-request-item');

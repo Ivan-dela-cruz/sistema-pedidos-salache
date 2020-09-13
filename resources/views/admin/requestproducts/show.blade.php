@@ -1,9 +1,11 @@
 @extends('admin.base.index')
 @section('content')
+   
 
     <div class="row">
-
-        @if(count($request_products))
+       
+        
+       
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-head">
@@ -22,37 +24,36 @@
                         <table class="table table-striped table-hover"  id="example-table" cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th>Cliente</th>
-                                <th>Motivo</th>
-                                <th>Total</th>
-                                <th>Registrado</th>
-                                <th>Estado</th>
-                                <th width="91px">Ver</th>
+                                <th>Producto</th>
+                                <th>Descripción</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Imagen</th>
+                                <th width="91px">Acción</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($request_products as $request_product)
+                            @foreach ($request_product->details as $detail)
                                 <tr>
-                                    <td>{{$request_product->merchant->name}}</td>
-                                    <td>{{$request_product->description}}</td>
-                                    <td>{{$request_product->created_at}}</td>
-                                    <td>{{\Carbon\Carbon::parse($request_product->created_at)->diffForHumans()}}</td>
-                                     <td>{{$request_product->status}}</td>
+                                    <td>{{$detail->name}}</td>
+                                    <td>{{$detail->description}}</td>
+                                    <td>{{$detail->price}}</td>
+                                    <td>{{$detail->stock}}</td>
+                                     <td><img src="{{asset($detail->url_image) }}"></td>
                                     <td>
-
                                         <a 
-                                            href="{{route('show-request-product',$request_product->id)}}"
+                                        	href="{{route('download-image-request-product',$detail->id)}}"
                                            class="btn btn-default btn-xs">
-                                            <i class="fa fa-eye font-14 text-muted"></i>
+                                            <i class="fa fa-download font-14 text-muted"></i>
                                         </a>
                                         <a 
-                                            href="{{route('delete-request-product',$request_product->id)}}"
+                                            href="{{route('delete-request-item',$detail->id)}}"
                                            class="btn btn-default btn-xs">
                                             <i class="fa fa-trash font-14 text-muted"></i>
                                         </a>
-                                      
                                     </td>
                                 </tr>
+                              
                             @endforeach
 
                             </tbody>
@@ -61,7 +62,6 @@
                     </div>
                 </div>
             </div>
-        @endif
 
        
     </div>
