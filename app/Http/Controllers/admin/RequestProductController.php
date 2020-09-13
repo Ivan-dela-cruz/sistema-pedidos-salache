@@ -56,11 +56,13 @@ class RequestProductController extends Controller
         $i = 0;
         foreach ($detalles as $ep => $det) {
             for ($j = 0; $j < $contador; $j++) {
+                $price =  (double) $det[$i]['price']; 
+             
                 $detail = new DetailRequestProduct();
                 $detail->id_request = $request_product->id;
                 $detail->name = $det[$i]['name'];
                 $detail->description = $det[$i]['description'];
-                $detail->price = $det[$i]['price'];
+                $detail->price = $price; 
                 $detail->stock = $det[$i]['stock'];
                 $detail->category = $det[$i]['category'];
 

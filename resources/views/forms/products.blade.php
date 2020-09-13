@@ -82,7 +82,7 @@ Solicitud de producto
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ni ni-money-coins"></i></span>
                                             </div>
-                                            {!! Form::text('price', null, ['class'=>'form-control','placeholder'=>'Precio','id'=>'price']) !!}
+                                            {!! Form::text('price', null, ['class'=>'form-control money2','placeholder'=>'Precio','id'=>'price']) !!}
                                         </div>
                                     </div>
                                     @error('price')
@@ -113,7 +113,7 @@ Solicitud de producto
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ni ni-ungroup"></i></span>
                                             </div>
-                                            {!! Form::number('stock', null, ['class'=>'form-control','placeholder'=>'Cantidad','id'=>'stock']) !!}
+                                            {!! Form::text('stock', null, ['class'=>'form-control stock','placeholder'=>'Cantidad','id'=>'stock']) !!}
                                         </div>
                                     </div>
                                     @error('category')

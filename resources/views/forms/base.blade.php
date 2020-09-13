@@ -124,6 +124,7 @@
 <!-- Argon JS -->
 <script src="{{asset('form/assets/js/argon.js?v=1.0.1')}}"></script>
 <script src="{{asset('sweetalert2/dist/sweetalert2.all.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/jquery.mask.js')}}"></script>
 @yield('scripts')
 
 </body>

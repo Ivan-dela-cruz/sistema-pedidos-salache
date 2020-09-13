@@ -2,7 +2,8 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		
+		 $('.money2').mask("##0.00", {reverse: true});
+		 $('.stock').mask("##0", {reverse: true});
 	});
 	let contador = 1;
 	let var_img_product = "#";
@@ -17,6 +18,7 @@
             var stock = $('#stock').val();
             var url_image = var_img_product;
             if( validateForm(name,description,price,category,stock,url_image)){
+            	updateList(name);
             	var fila = '<tr class="product' + contador + '">' +
 	            	'<td class="name">' + name + '</td>' +
 	                '<td class="description">' + description + '</td>' +
@@ -43,40 +45,64 @@
 	            detail.push(item);
 	            contador++;
 	            console.log(detail);
+	            Swal.fire(
+                            'Agregado!',
+                            'El producto ha sido agregado a la lista.',
+                            'success'
+                        );
             }
            
     }
 
+    function updateList(name){
+    	for (let i = 0; i < detail.length ; i++){
+	    	if(detail[i].name==name){
+	    		$('.product' + detail[i].id).remove();
+	    		detail.splice(i, 1);
+	    	}
+	    }
+    }
+
     function validateForm(name,description,price,category,stock,url_image){
     	if(name == ""){
-    		console.log("nombre");
+    		Swal.fire(
+                    'Nombre vacío',
+                    'El producto de contener un nombre.',
+                    'warning'
+                );
     		return false;
     	}
     	if(description == ""){
-    		console.log("descr");
+    		Swal.fire(
+                    'Descripción vacía',
+                    'El producto de contener una descripción corta.',
+                    'warning'
+                );
     		return false;
     	}
     	if(price == ""){
-    		console.log("preci");
+    		Swal.fire(
+                    'Precio vacío',
+                    'El producto de contener un precio.',
+                    'warning'
+                );
     		return false;
-    	}else{
-    		if(Number.isInteger(price)){
-    			console.log("preci number");
-				return false;
-    		}
     	}
     	if(category == ""){
-    		console.log("cate");
+    		Swal.fire(
+                    'Categoría vacía',
+                    'El producto de contener una categoría.',
+                    'warning'
+                );
     		return false;
     	}
     	if(stock == ""){
-    		console.log("sto");
+    		Swal.fire(
+                    'Cantidad vacía',
+                    'El producto de contener una cantidad.',
+                    'warning'
+                );
     		return false;
-    	}else{
-    		if(Number.isInteger(stock)){
-    			console.log("sto num");
-				return false;
-    		}
     	}
     	if(url_image == "#"){
     		console.log("img");
