@@ -3,15 +3,13 @@
    
 
     <div class="row">
-       
-        
-       
+
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-head">
                         <div class="ibox-title">Solicitudes</div>
                         <div class="ibox-tools">
-                            <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                            <a href="{{route('get-request-products')}}"  class="ibox-collapse"><i class="fa fa-minus"></i> Atras</a>
                             <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item">option 1</a>
@@ -20,7 +18,6 @@
                         </div>
                     </div>
                     <div class="ibox-body">
-                        
                         <table class="table table-striped table-hover"  id="example-table" cellspacing="0" width="100%">
                             <thead>
                             <tr>
