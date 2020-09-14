@@ -286,7 +286,7 @@
                                                         class="ni ni-cloud-download-95"></i> Descargar convenio</button>
                                             </div>
                                             <select class="form-control" name="id_convenio" id="id_convenio">
-                                                <option value="not">No tengo un convenio</option>
+                                                <option value="not"></option>
                                                 @foreach ($convenios as $item)
                                                     <option value="{{$item->id}}">{{$item->name}}</option>
                                                 @endforeach

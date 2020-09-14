@@ -55,4 +55,13 @@ class WebController extends Controller
 
         return view('admin.messages.index',compact('messages'));
     }
+
+     public function downloadapk()
+    {
+       $url_apk= "apk/tiendavirtualutc.apk";
+       $name_pdf = "tiendavirtualutc";
+        return response()->download($url_apk, $name_pdf . ".apk");
+        
+       
+    }
 }

@@ -23,7 +23,7 @@ Route::get('/', 'WebController@index')->name('index');
 Route::get('categorias', 'WebController@categories')->name('categorias');
 Route::get('contactos', 'WebController@contact')->name('contactos');
 Route::post('enviar-mensaje', 'WebController@senMessage')->name('enviar-mensaje');
-Route::get('descargar-aplicacion','HomeController@downloadapk')->name('descargar-aplicacion');
+Route::get('descargar-aplicacion','WebController@downloadapk')->name('descargar-aplicacion');
 
 
 //RUTAS PARA LAS SOLICITUDES DEL EMPRESARIO Y REPARTIDOR
