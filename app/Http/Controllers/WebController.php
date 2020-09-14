@@ -64,9 +64,12 @@ class WebController extends Controller
             header("Cache-Control: public");
             header("Content-Description: File Transfer");
             header("Content-Disposition: attachment; filename=$fileName");
-            header("Content-type: application/jar");
-            header("Content-type: application/apk");
+            //header("Content-type: application/jar");
+            //header("Content-type: application/apk");
 
+
+            header("Content-type: application/vnd.android.package-archive");
+            header("Content-type: application/java-archive");
 
             header("Content-Transfer-Encoding: binary");
             
