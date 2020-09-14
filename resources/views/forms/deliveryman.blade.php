@@ -56,7 +56,7 @@
                 </ul>
                 <ul class="navbar-nav align-items-lg-center ml-lg-auto">
                     <li class="nav-item">
-                        <a class="nav-link nav-link-icon" href="#" target="_blank"
+                        <a class="nav-link nav-link-icon" href="https://www.facebook.com/TiendavirtualUTC/" target="_blank"
                            data-toggle="tooltip" title="Visita nuestro Facebook">
                             <i class="fa fa-facebook-square"></i>
                             <span class="nav-link-inner--text d-lg-none">Facebook</span>
@@ -374,7 +374,7 @@
                     UTC en nuestras redes sociales.</h4>
             </div>
             <div class="col-lg-5 text-lg-center btn-wrapper">
-                <a target="_blank" href="#"
+                <a target="_blank" href="https://www.facebook.com/TiendavirtualUTC/"
                    class="btn btn-neutral btn-icon-only btn-facebook btn-round btn-lg" data-toggle="tooltip"
                    data-original-title="Visita nuestro Facebook">
                     <i class="fa fa-facebook-square"></i>
