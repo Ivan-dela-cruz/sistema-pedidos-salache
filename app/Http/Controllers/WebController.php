@@ -84,13 +84,12 @@ class WebController extends Controller
 */
      public function downloadapk()
     {
-       $url_apk= "apk/tiendavirtualutc.apk";
-       $name_pdf = "tiendavirtualutc";
-        return response()->download($url_apk, $name_pdf . ".apk");
-
-        return response()->file($url_apk ,[
+        $url_apk= "apk/tiendavirtualutc.apk";
+        $name_pdf = "tiendavirtualutc.apk";
+        return response()->download($url_apk,$name_pdf ,[
             'Content-Type'=>'application/vnd.android.package-archive',
-            'Content-Disposition'=> 'attachment; filename="android.apk"',
+            'apk' => 'application/vnd.android.package-archive',
+            'jar' => 'application/java-archive'
         ]) ;
         
        
