@@ -24,7 +24,7 @@
                             <tr>
                                 <th>Cliente</th>
                                 <th>Motivo</th>
-                                <th>Total</th>
+                               
                                 <th>Registrado</th>
                                 <th>Estado</th>
                                 <th width="91px">Ver</th>
@@ -35,7 +35,6 @@
                                 <tr>
                                     <td>{{$request_product->merchant->name}}</td>
                                     <td>{{$request_product->description}}</td>
-                                    <td>{{$request_product->created_at}}</td>
                                     <td>{{\Carbon\Carbon::parse($request_product->created_at)->diffForHumans()}}</td>
                                      <td>{{$request_product->status}}</td>
                                     <td>
