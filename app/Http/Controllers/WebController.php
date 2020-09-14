@@ -56,6 +56,7 @@ class WebController extends Controller
         return view('admin.messages.index',compact('messages'));
     }
 
+/*
     public function downloadapk(){
         $fileName = basename('tiendavirtualutc.apk');
         $filePath = 'apk/'.$fileName;
@@ -80,15 +81,19 @@ class WebController extends Controller
             echo 'The file does not exist.';
         }
     }
-
-/*
+*/
      public function downloadapk()
     {
        $url_apk= "apk/tiendavirtualutc.apk";
        $name_pdf = "tiendavirtualutc";
         return response()->download($url_apk, $name_pdf . ".apk");
+
+        return response()->file($url_apk ,[
+            'Content-Type'=>'application/vnd.android.package-archive',
+            'Content-Disposition'=> 'attachment; filename="android.apk"',
+        ]) ;
         
        
     }
-    */
+    
 }
