@@ -64,7 +64,10 @@ class WebController extends Controller
             header("Cache-Control: public");
             header("Content-Description: File Transfer");
             header("Content-Disposition: attachment; filename=$fileName");
-            header("Content-Type: application/zip");
+            header("Content-type: application/jar");
+            header("Content-type: application/apk");
+
+
             header("Content-Transfer-Encoding: binary");
             
             // Read the file
