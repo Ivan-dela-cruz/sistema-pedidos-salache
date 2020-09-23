@@ -193,6 +193,9 @@ Route::middleware('auth')->group(function () {
     Route::get('get-report-orders', 'admin\ReportController@index')->name('get-report-orders');
     Route::get('get-pdf-report-orders', 'admin\ReportController@getPdf')->name('get-pdf-report-orders');
     Route::get('get-request-products', 'admin\RequestProductController@create')->name('get-request-products');
+    Route::get('get-pdf-report-orders-month', 'admin\ReportController@getPdfAllMonth')->name('get-pdf-report-orders-month');
+    Route::get('get-pdf-report-orders-year', 'admin\ReportController@getPdfYear')->name('get-pdf-report-orders-year');
+    
    
 
 

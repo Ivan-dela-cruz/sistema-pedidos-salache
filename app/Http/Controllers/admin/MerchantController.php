@@ -298,7 +298,8 @@ class MerchantController extends Controller
 
             $archivo = $request->file('url_file');
             $nombre_archivo = time() . '.' . $archivo->getClientOriginalExtension();
-            $r2 = Storage::disk('documents')->put(utf8_decode($nombre_archivo), File::get($archivo));
+            //$r2 = Storage::disk('documents')->put(utf8_decode($nombre_archivo), File::get($archivo));
+            $archivo->move(public_path('storage/documents/'), $nombre_archivo);
             $ruta_archivo = "storage/documents/" . $nombre_archivo;
         } else {
             $ruta_archivo = "#";

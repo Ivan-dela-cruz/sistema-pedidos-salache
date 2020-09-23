@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Message;
 use App\Slider;
+use App\Tracker;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,9 +14,13 @@ class WebController extends Controller
 {
     public function index()
     {
+        Tracker::hit();
+        $hits = Tracker::orderBy('date')->sum('hits');
+        $visits = $this->contador($hits);
         $sliders = Slider::where('status', 'activo')->orderBy('order', 'ASC')->get();
+        
 
-        return view('web.index', compact('sliders'));
+        return view('web.index', compact('sliders','visits'));
     }
     public function categories()
     {
@@ -28,6 +34,38 @@ class WebController extends Controller
 
         return view('web.contacts');
     }
+    public function contador($contador){
+        if($contador<10){
+            return "000000000".$contador;
+        }
+        if($contador<100){
+            return "00000000".$contador;
+        }
+        if($contador<1000){
+            return "0000000 ".$contador;
+        }
+        if($contador<10000){
+            return "000000".$contador;
+        }
+        if($contador<100000){
+            return "00000".$contador;
+        }
+        if($contador<1000000){
+            return "0000".$contador;
+        }
+        if($contador<10000000){
+            return "000".$contador;
+        }
+        if($contador<100000000){
+            return "00".$contador;
+        }
+        if($contador<1000000000){
+            return "0".$contador;
+        }else{
+            return "".$contador;
+        }
+    }
+
 
     public function senMessage(Request $request){
         try{

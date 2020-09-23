@@ -7,6 +7,7 @@ use App\DeliveryMan;
 use App\DetailOrder;
 use App\Merchant;
 use App\Order;
+use App\Tracker;
 use App\RequestForm;
 use App\RequestFormDeliveryMan;
 use Illuminate\Http\Request;
@@ -31,6 +32,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        $visits = Tracker::orderBy('updated_at','DESC')->get();
+        $total_visits = Tracker::orderBy('updated_at','DESC')->sum('hits');
+
         $customers = Customer::orderBy('id', 'ASC')->get(['id']);
         $orders = Order::orderBy('id', 'ASC')->get(['id']);
         $deliverymen = DeliveryMan::where('status', 'aprobado')->get(['id']);
@@ -83,9 +88,12 @@ class HomeController extends Controller
                 'deliverymen_lasted',
                 'request_deliverymen',
                 'request_merchants',
-                'orders_customers'
+                'orders_customers',
+                'visits',
+                'total_visits'
             ));
     }
 
+    
     
 }

@@ -55,4 +55,31 @@ class ReportController extends Controller
         $nombrePdf = 'reporte de ordenes -' . time() . '.pdf';
         return $pdf->download($nombrePdf);
     }
+
+    public function getPdfAllMonth(){
+        $now = Carbon::now();
+        $year = $now->year;
+        $month = $now->month;
+        $day = $now->day;
+      
+        $orders = Order::whereMonth('created_at',$month)->get();
+       
+        $pdf = PDF::loadView('pdf.report_month', compact('orders'));
+        //$pdf->setPaper('A4', 'landscape');
+        $nombrePdf = 'reporte de ordenes -' . time() . '.pdf';
+        return $pdf->download($nombrePdf);
+    }
+     public function getPdfYear(){
+        $now = Carbon::now();
+        $month = $now->month;
+        $year = $now->year;
+      
+        $orders = Order::whereYear('created_at',$year)->get();
+        
+       
+        $pdf = PDF::loadView('pdf.report_year', compact('orders'));
+        //$pdf->setPaper('A4', 'landscape');
+        $nombrePdf = 'reporte de ordenes -' . time() . '.pdf';
+        return $pdf->download($nombrePdf);
+    }
 }

@@ -33,6 +33,7 @@
     <!-- Template Main CSS File -->
     <link href="assets2/css/style.css" rel="stylesheet">
 
+
     <!-- =======================================================
     * Template Name: Company - v2.1.0
     * Template URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
@@ -56,7 +57,7 @@
       <div class="container">
         <div class="row">
 
-          <div class="col-lg-3 col-md-6 footer-contact">
+          <div class="col-lg-6 col-md-6 footer-contact">
             <h3>Tienda Virtual UTC</h3>
             <p>
               Av. Simón Rodríguez s/n Barrio El Ejido Sector San Felipe. <br>
@@ -64,6 +65,23 @@
               <strong>Teléfono:</strong> 0998397454<br>
               <strong>Email:</strong>pablo.herrera0259@utc.edu.ec<br>
             </p>
+
+          </div>
+          <div class="col-lg-6">
+             @if(isset($visits))
+
+                <h3 class="contador"> 
+                    
+                    <strong>{{$visits}}</strong> 
+                   
+                </h3>
+                <h5 style="color: #d91818;">
+                  <i class="icofont-eye-alt"></i>
+                  visitas
+                
+                </h5>
+                 
+            @endif
           </div>
 
 
@@ -83,7 +101,7 @@
           <!-- You can delete the links only if you purchased the pro version. -->
           <!-- Licensing information: https://bootstrapmade.com/license/ -->
           <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/company-free-html-bootstrap-template/ -->
-          Designed by <a href="https://bootstrapmade.com/">Universidad Técnica de Cotopaxi</a>
+          Designed by <a href="http://www.utc.edu.ec/">Universidad Técnica de Cotopaxi</a>
         </div>
       </div>
       <div class="social-links text-center text-md-right pt-3 pt-md-0">

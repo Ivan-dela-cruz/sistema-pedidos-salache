@@ -99,7 +99,41 @@
                 </div>
             </div>
         @endif
+        
+        @if (count($merchants_lasted))
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-head">
+                        <div class="ibox-title">Nuevos empresarios</div>
+                    </div>
+                    <div class="ibox-body">
+                        <ul class="media-list media-list-divider m-0">
+                            @foreach($merchants_lasted as $merchant)
 
+                                <li class="media">
+                                    <a class="media-img" href="javascript:;">
+                                        @if ($merchant->user->url_image==="#")
+                                            <img class="img-circle" src="{{asset('img/users/user.png')}}" width="40"/>
+                                        @else
+                                            <img class="img-circle" src="{{$merchant->user->url_image}}" width="40"/>
+                                        @endif
+
+                                    </a>
+                                    <div class="media-body">
+                                        <div class="media-heading">{{$merchant->name}} {{$merchant->last_name}} <small
+                                                class="float-right text-muted">{{\Carbon\Carbon::parse($merchant->created_at)->diffForHumans()}}</small>
+                                        </div>
+                                        <div class="font-13">{{$merchant->email}}
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        @endif
+        
         @if(count($request_deliverymen))
             <div class="col-lg-8">
                 <div class="ibox">
@@ -155,6 +189,38 @@
                 </div>
             </div>
         @endif
+        @if (count($deliverymen_lasted))
+            <div class="col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-head">
+                        <div class="ibox-title">Nuevos repartidores</div>
+                    </div>
+                    <div class="ibox-body table-responsive">
+                        <ul class="media-list media-list-divider m-0">
+                            @foreach($deliverymen_lasted as $delivery)
+
+                                <li class="media">
+                                    <a class="media-img" href="javascript:;">
+                                        @if ($delivery->user->url_image==="#")
+                                            <img class="img-circle" src="{{asset('img/users/user.png')}}" width="40"/>
+                                        @else
+                                            <img class="img-circle" src="{{$delivery->user->url_image}}" width="40"/>
+                                        @endif
+                                    </a>
+                                    <div class="media-body">
+                                        <div class="media-heading">{{$delivery->name}} {{$delivery->last_name}} <small
+                                                class="float-right text-muted">{{\Carbon\Carbon::parse($delivery->created_at)->diffForHumans()}}</small>
+                                        </div>
+                                        <div class="font-13">{{$delivery->email}}
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        @endif
         @if(count($orders_customers))
             <div class="col-lg-12">
                 <div class="ibox">
@@ -169,7 +235,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ibox-body">
+                    <div class="ibox-body table-responsive">
                         <table class="table table-striped table-hover">
                             <thead>
                             <tr>
@@ -208,72 +274,53 @@
                 </div>
             </div>
         @endif
-
-        <div class="col-lg-4">
-            @if (count($merchants_lasted))
-
-
+        @if(count($visits))
+            <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-head">
-                        <div class="ibox-title">Nuevos empresarios</div>
+                        <div class="ibox-title">Vistas ({{$total_visits}}) </div>
+                        <div class="ibox-tools">
+                            <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item">option 1</a>
+                                <a class="dropdown-item">option 2</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="ibox-body">
-                        <ul class="media-list media-list-divider m-0">
-                            @foreach($merchants_lasted as $merchant)
-
-                                <li class="media">
-                                    <a class="media-img" href="javascript:;">
-                                        @if ($merchant->user->url_image==="#")
-                                            <img class="img-circle" src="{{asset('img/users/user.png')}}" width="40"/>
-                                        @else
-                                            <img class="img-circle" src="{{$merchant->user->url_image}}" width="40"/>
-                                        @endif
-
-                                    </a>
-                                    <div class="media-body">
-                                        <div class="media-heading">{{$merchant->name}} {{$merchant->last_name}} <small
-                                                class="float-right text-muted">{{\Carbon\Carbon::parse($merchant->created_at)->diffForHumans()}}</small>
-                                        </div>
-                                        <div class="font-13">{{$merchant->email}}
-                                        </div>
-                                    </div>
-                                </li>
+                    <div class="ibox-body table-responsive">
+                        <table class="table table-striped table-hover"  id="example-table">
+                            <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>IP</th>
+                                <th>VISITAS</th>
+                                <th>ÚLTIMA VISITA</th>
+                                <th>FECHA</th>
+                                <th>HORA</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                 <small hidden>{{$contador =1}}</small>
+                                
+                            @foreach ($visits as $visits)
+                                <tr>
+                                    <td>{{$contador}}</td>
+                                    <td>{{$visits->ip}}</td>
+                                    <td>{{$visits->hits}}</td>
+                                    <td>{{\Carbon\Carbon::parse($visits->updated_at)->diffForHumans()}}</td>
+                                    <td>{{$visits->date}}</td>
+                                    <td>{{$visits->visit_time}}</td>
+                                </tr>
+                                 <small hidden>{{$contador++}}</small>
                             @endforeach
-                        </ul>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            @endif
-            @if (count($deliverymen_lasted))
-                <div class="ibox">
-                    <div class="ibox-head">
-                        <div class="ibox-title">Nuevos repartidores</div>
-                    </div>
-                    <div class="ibox-body">
-                        <ul class="media-list media-list-divider m-0">
-                            @foreach($deliverymen_lasted as $delivery)
-
-                                <li class="media">
-                                    <a class="media-img" href="javascript:;">
-                                        @if ($delivery->user->url_image==="#")
-                                            <img class="img-circle" src="{{asset('img/users/user.png')}}" width="40"/>
-                                        @else
-                                            <img class="img-circle" src="{{$delivery->user->url_image}}" width="40"/>
-                                        @endif
-                                    </a>
-                                    <div class="media-body">
-                                        <div class="media-heading">{{$delivery->name}} {{$delivery->last_name}} <small
-                                                class="float-right text-muted">{{\Carbon\Carbon::parse($delivery->created_at)->diffForHumans()}}</small>
-                                        </div>
-                                        <div class="font-13">{{$delivery->email}}
-                                        </div>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            @endif
-        </div>
+            </div>
+        @endif
     </div>
 @endsection
 

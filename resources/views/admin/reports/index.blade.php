@@ -7,7 +7,10 @@
                 <div class="ibox-body">
                     <h2 class="m-b-5 font-strong">$ {{$orders_month_val}}</h2>
                     <div class="m-b-5">Mensual</div>
-                    <i class="ti-user widget-stat-icon"></i>
+                   
+                    <a href="{{route('get-pdf-report-orders-month')}}">
+                      <i class="text-white fa fa-print fa-3x widget-stat-icon"></i>
+                    </a>
                     <div><i class="fa fa-level-up m-r-5"></i><small>{{$orders_month}} ordenes</small></div>
                 </div>
             </div>
@@ -17,7 +20,10 @@
                 <div class="ibox-body">
                     <h2 class="m-b-5 font-strong">$ {{$orders_year_val}}</h2>
                     <div class="m-b-5">Anual</div>
-                    <i class="ti-home widget-stat-icon"></i>
+                    <a href="{{route('get-pdf-report-orders-year')}}">
+                      <i class="text-white fa fa-print fa-3x widget-stat-icon"></i>
+                    </a>
+                    
                     <div><i class="fa fa-level-up m-r-5"></i><small>{{$orders_year}} ordenes</small></div>
                 </div>
             </div>
