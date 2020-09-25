@@ -57,7 +57,7 @@
                         <span class="nav-label">Productos</span><i class="fa fa-angle-left arrow"></i></a>
                     <ul class="nav-2-level collapse">
                         @can('crear producto')
-                           
+
                         @endcan
                         <li>
                             <a href="{{route('get-product')}}">Lista</a>
@@ -129,7 +129,6 @@
                         </li>
 
 
-
                     </ul>
                 </li>
             @endcan
@@ -138,45 +137,48 @@
                     <a href="javascript:;"><i class="sidebar-item-icon fa fa-cog"></i>
                         <span class="nav-label">Configuraciones</span><i class="fa fa-angle-left arrow"></i></a>
                     <ul class="nav-2-level collapse">
-
                         <li>
                             <a href="{{route('web-index')}}">Sliders</a>
                         </li>
-
                         <li>
                             <a href="{{route('get-company')}}">Tipos de Empresas</a>
                         </li>
-
                         <li>
                             <a href="{{route('get-vehicle')}}">Tipos de Vehículos</a>
                         </li>
+                    </ul>
+                </li>
+            @endcan
 
-
+            @can('leer item')
+                <li>
+                    <a href="javascript:;"><i class="sidebar-item-icon fa fa-cog"></i>
+                        <span class="nav-label">Reportes</span><i class="fa fa-angle-left arrow"></i></a>
+                    <ul class="nav-2-level collapse">
+                        <li>
+                            <a href="{{route('get-report-orders')}}">Individual</a>
+                        </li>
+                        <li>
+                            <a href="{{route('get-report-all-orders')}}">General</a>
+                        </li>
                     </ul>
                 </li>
             @endcan
             @can('leer item')
                 <li>
-                <a href="{{route('get-messages')}}"><i class="sidebar-item-icon fa fa-envelope-o"></i>
-                        <span class="nav-label">Mensajes</span></a>
-
-                </li>
-            @endcan
-            @can('leer item')
-                <li>
-                <a href="{{route('get-report-orders')}}"><i class="sidebar-item-icon fa fa-file-o"></i>
-                        <span class="nav-label">Reportes</span></a>
-
-                </li>
-            @endcan
-            @can('leer item')
-                <li>
-                <a href="{{route('get-request-products')}}"><i class="sidebar-item-icon fa fa-image"></i>
+                    <a href="{{route('get-request-products')}}"><i class="sidebar-item-icon fa fa-image"></i>
                         <span class="nav-label">Solicitud productos</span></a>
 
                 </li>
             @endcan
-            
+            @can('leer item')
+                <li>
+                    <a href="{{route('get-messages')}}"><i class="sidebar-item-icon fa fa-envelope-o"></i>
+                        <span class="nav-label">Mensajes</span></a>
+
+                </li>
+            @endcan
+
         </ul>
     </div>
 </nav>

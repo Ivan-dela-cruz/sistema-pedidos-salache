@@ -190,16 +190,20 @@ Route::middleware('auth')->group(function () {
     Route::get('get-pdf-companies', 'admin\MerchantController@getPdfCompanies')->name('get-pdf-companies');
     Route::get('get-pdf-deliveryman', 'admin\DeliveryManController@getPdfDeliveryMan')->name('get-pdf-deliveryman');
     Route::get('get-pdf-products', 'admin\ProductController@getPdfCompaniesProducts')->name('get-pdf-products');
+
     Route::get('get-report-orders', 'admin\ReportController@index')->name('get-report-orders');
     Route::get('get-pdf-report-orders', 'admin\ReportController@getPdf')->name('get-pdf-report-orders');
     Route::get('get-request-products', 'admin\RequestProductController@create')->name('get-request-products');
     Route::get('get-pdf-report-orders-month', 'admin\ReportController@getPdfAllMonth')->name('get-pdf-report-orders-month');
     Route::get('get-pdf-report-orders-year', 'admin\ReportController@getPdfYear')->name('get-pdf-report-orders-year');
-    
-   
+
+    Route::get('get-report-all-orders', 'admin\ReportController@allcompanies')->name('get-report-all-orders');
+    Route::get('get-pdf-report-all-orders', 'admin\ReportController@getPdfAll')->name('get-pdf-report-all-orders');
 
 
-   
+
+
+
 });
 
 //RUTAS PARA LAS SOLICITUDES DE PRODUCTOS
